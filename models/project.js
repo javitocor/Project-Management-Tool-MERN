@@ -4,8 +4,9 @@ var Schema = mongoose.Schema;
 var ProjectSchema = new Schema({
     name: {type: String, required: true, min: 3, max: 20},
     stack: [{type: Schema.Types.ObjectId, ref: 'Stack'}],
-    year: { type: Number, null: true, blank: true},
-    socialMediaHandles: {
+    year: { type: Number, null: true, blank: true, min: 1980, max: 2100},
+    images: {data:Buffer, contentType: String},
+    links: {
       type: Map,
       of: String,
       null: true, blank: true
