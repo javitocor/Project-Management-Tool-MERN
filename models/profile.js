@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var UserSchema = new Schema({
-    firstname: {type: String, required: [true, 'User firstname required'], min: 3, max: 20},
-    lastanme: {type: String, required: [true, 'User lastname required'], min: 3, max: 20},
+var ProfileSchema = new Schema({
+    firstname: {type: String, required: [true, 'Profile firstname required'], min: 3, max: 20},
+    lastanme: {type: String, required: [true, 'Profile lastname required'], min: 3, max: 20},
     dob: { type: Date, null: true, blank: true},
     avatar: {type: String},
     email: {
@@ -38,7 +38,7 @@ var UserSchema = new Schema({
     updated_at: { type: Date, default: Date.now },
 });
 
-UserSchema
+ProfileSchema
 .virtual('imageUrl')
 .get(function () {
   const pathJPG = `/images/${this.avatar}`;
@@ -46,12 +46,12 @@ UserSchema
 });
 
 
-// Virtual for this User instance URL.
-UserSchema
+// Virtual for this Profile instance URL.
+ProfileSchema
 .virtual('url')
 .get(function () {
-  return '/Users/'+this._id;
+  return '/Profiles/'+this._id;
 });
 
 // Export model.
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('Profile', ProfileSchema);
