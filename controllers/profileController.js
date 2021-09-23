@@ -57,7 +57,7 @@ exports.profile_update = async (req, res, next) => {
       });
     };
     try {
-      const profile = await Profile.findByIdAndUpdate(req.params.id, { $set: req.body }, {new: true});
+      const profile = await Profile.findByIdAndUpdate(req.params.id, { $set: req.body, updated_at: Date.now() }, {new: true});
       res.status(200);
       res.json({message: 'Profile updated successfully', profile});
     } catch (error) {
