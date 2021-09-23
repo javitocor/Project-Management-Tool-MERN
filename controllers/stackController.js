@@ -22,32 +22,64 @@ exports.stack_detail = async (req, res, next) => {
   }
 };
 
-exports.stack_create = async (req, res, next) => {
-  const {name, date, max_tickets, ongoing} = req.body;
-  const stack = new Stack({
-    name,
-    date,
-    max_tickets,
-    ongoing,
-  });
-  try {
-    await stack.save();
-    res.status(201);
-    res.json({message: 'Stack created successfully'});
-  } catch (error) {
-    res.json(error)
-    next();
+exports.stack_create = (req, res, next) => {
+  body('name', 'Name must not be empty.').isLength({ min: 3 }).trim().escape(),
+  body('description', 'Description must not be empty.').isLength({ min: 15 }).trim().escape(),
+  body('released_year', 'released_year must be between 1950 and 2100.').custom(value=>{
+    if(value < 1950 || value > 2100){
+      throw new Error('Years does not match range (1950-2100)');
+    }
+    return true;
+  }),
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({
+        errors: errors.array()
+      });
+    };
+
+    try {
+      const {name, description, released_year} = req.body;
+      const stack = new Stack({
+        name,
+        description,
+        released_year,
+      });
+      await stack.save();
+      res.status(201);
+      res.json({message: 'Stack created successfully', stack});
+    } catch (error) {
+      res.json(error)
+      next();
+    }
   }
 };
 
-exports.stack_update = async (req, res, next) => {
-  try {
-    await Stack.findByIdAndUpdate(req.params.id, { $set: req.body });
-    res.status(200);
-    res.json({message: 'Stack updated successfully'});
-  } catch (error) {
-    res.json(error)
-    next();
+exports.stack_update = (req, res, next) => {
+  body('name', 'Name must not be empty.').isLength({ min: 3 }).trim().escape(),
+  body('description', 'Description must not be empty.').isLength({ min: 15 }).trim().escape(),
+  body('released_year', 'released_year must be between 1950 and 2100.').custom(value=>{
+    if(value < 1950 || value > 2100){
+      throw new Error('Years does not match range (1950-2100)');
+    }
+    return true;
+  }),
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({
+        errors: errors.array()
+      });
+    };
+    try {
+      const stack = await Stack.findByIdAndUpdate(req.params.id, { $set: req.body });
+      res.status(200);
+      res.json({message: 'Stack updated successfully', stack});
+    } catch (error) {
+      res.json(error)
+      next();
+    }
   }
 };
 
