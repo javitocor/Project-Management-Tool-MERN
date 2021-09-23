@@ -1,5 +1,4 @@
 const Stack = require('../models/stack');
-const Ticket = require('../models/ticket');
 
 exports.stack_list = async (req, res, next) => {
   try {
