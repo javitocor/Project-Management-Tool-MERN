@@ -54,7 +54,7 @@ exports.stack_update = async (req, res, next) => {
       });
     };
     try {
-      const stack = await Stack.findByIdAndUpdate(req.params.id, { $set: req.body }, {new: true});
+      const stack = await Stack.findByIdAndUpdate(req.params.id, { $set: req.body, updated_at: Date.now() }, {new: true});
       res.status(200);
       res.json({message: 'Stack updated successfully', stack});
     } catch (error) {

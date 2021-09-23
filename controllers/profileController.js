@@ -30,7 +30,7 @@ exports.profile_create = async (req, res, next) => {
       });
     };
     try {
-      const {firstname, lastname, dob, email, gender, phone} = req.body;
+      const {firstname, lastname, dob, email, gender, phone, github, linkedin, angelist} = req.body;
       const profile = new Profile({
         firstname,
         lastname,
@@ -38,8 +38,18 @@ exports.profile_create = async (req, res, next) => {
         email,
         gender,
         phone,
+        socialMedia: {}
         /*avatar: req.file.filename,*/
       });
+      if (github) {
+        await profile.socialMedia.set('Github', github)
+      }
+      if (linkedin) {
+        await profile.socialMedia.set('Linkedin', linkedin)
+      }
+      if (angelist) {
+        await profile.socialMedia.set('Angelist', angelist)
+      }
       await profile.save();
       res.status(201);
       res.json({message: 'Profile created successfully', profile});
@@ -57,7 +67,18 @@ exports.profile_update = async (req, res, next) => {
       });
     };
     try {
+      const {github, linkedin, angelist} = req.body;
       const profile = await Profile.findByIdAndUpdate(req.params.id, { $set: req.body, updated_at: Date.now() }, {new: true});
+      if (github) {
+        await profile.socialMedia.set('Github', github)
+      }
+      if (linkedin) {
+        await profile.socialMedia.set('Linkedin', linkedin)
+      }
+      if (angelist) {
+        await profile.socialMedia.set('Angelist', angelist)
+      }
+      await profile.save();
       res.status(200);
       res.json({message: 'Profile updated successfully', profile});
     } catch (error) {

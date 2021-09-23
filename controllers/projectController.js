@@ -85,7 +85,7 @@ exports.project_update = async (req, res, next) => {
   };
 
   try {
-    const project = await Project.findByIdAndUpdate(req.params.id, { $set: req.body }, {new: true});
+    const project = await Project.findByIdAndUpdate(req.params.id, { $set: req.body, updated_at: Date.now() }, {new: true});
     res.status(200);
     res.json({message: 'Project updated successfully', project});
   } catch (error) {

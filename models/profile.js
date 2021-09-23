@@ -32,7 +32,6 @@ var ProfileSchema = new Schema({
     socialMedia: {
       type: Map,
       of: String,
-      null: true, blank: true
     },
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },
