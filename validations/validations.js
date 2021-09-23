@@ -1,3 +1,4 @@
+const Profile = require('../models/profile');
 const { body } = require("express-validator");
 
 exports.projectValidations = [
@@ -13,16 +14,16 @@ exports.projectValidations = [
 ];
 
 exports.profileValidations = [
-    body('firstname').isLength({ min: 3 }).withMessage('Firstname must not be empty.').trim().escape(),
-    body('lastname').isLength({ min: 3 }).withMessage('Lastname must not be empty.').trim().escape(),
-    body('dob').isDate().withMessage('Must be a date'),
-    body('email').isEmail().trim().escape(),
-    body('gender').not().isIn(['Male', 'Female', 'Other']).trim().escape(),
-    body('phone', 'Phone number already in use').custom(value => {
-      return Profile.find({phone: value}).then(profile => {
-        if (profile) {
-          return Promise.reject('Phone number already in use');
-        }
-      });
-    }).trim().escape()
+  body('firstname').isLength({ min: 3 }).withMessage('Firstname must not be empty.').trim().escape(),
+  body('lastname').isLength({ min: 3 }).withMessage('Lastname must not be empty.').trim().escape(),
+  body('dob').isDate().withMessage('Must be a date').optional(),
+  body('email', 'Your email is not valid').trim().not().isEmpty().isEmail().normalizeEmail().escape(),
+  body('gender').not().isIn(['Male', 'Female', 'Other']).trim().escape().optional(),
+  body('phone', 'Phone number already in use').custom(value => {
+    return Profile.find({phone: value}).then(profile => {
+      if (profile) {
+        return Promise.reject('Phone number already in use');
+      }
+    });
+  }).trim().escape().optional()
 ];
