@@ -22,32 +22,62 @@ exports.profile_detail = async (req, res, next) => {
   }
 };
 
-exports.profile_create = async (req, res, next) => {
-  const {name, date, max_tickets, ongoing} = req.body;
-  const profile = new Profile({
-    name,
-    date,
-    max_tickets,
-    ongoing,
-  });
-  try {
-    await profile.save();
-    res.status(201);
-    res.json({message: 'Profile created successfully'});
-  } catch (error) {
-    res.json(error)
-    next();
+exports.profile_create = (req, res, next) => {
+  body('firstname', 'Firstname must not be empty.').isLength({ min: 3 }).trim().escape(),
+  body('lastname', 'Lastname must not be empty.').isLength({ min: 3 }).trim().escape(),
+  body('dob', 'Must be a date').isDate(),
+  body('email', 'Description must not be empty.').isEmail().trim().escape(),
+  body('gender', 'Firstname must not be empty.').inIn(['Male', 'Female', 'Other']).trim().escape(),
+  body('phone', 'Phone number already in use').custom(value => {
+    return Profile.find({phone: value}).then(profile => {
+      if (profile) {
+        return Promise.reject('Phone number already in use');
+      }
+    });
+  }).trim().escape()
+  async (req, res, next) => {
+    try {
+      const {firstname, lastname, dob, email, gender, phone} = req.body;
+      const profile = new Profile({
+        firstname,
+        lastname,
+        dob,
+        email,
+        gender,
+        phone,
+      });
+      await profile.save();
+      res.status(201);
+      res.json({message: 'Profile created successfully'});
+    } catch (error) {
+      res.json(error)
+      next();
+    }
   }
 };
 
-exports.profile_update = async (req, res, next) => {
-  try {
-    await Profile.findByIdAndUpdate(req.params.id, { $set: req.body });
-    res.status(200);
-    res.json({message: 'Profile updated successfully'});
-  } catch (error) {
-    res.json(error)
-    next();
+exports.profile_update = (req, res, next) => {
+  body('firstname', 'Firstname must not be empty.').isLength({ min: 3 }).trim().escape(),
+  body('lastname', 'Lastname must not be empty.').isLength({ min: 3 }).trim().escape(),
+  body('dob', 'Must be a date').isDate(),
+  body('email', 'Description must not be empty.').isEmail().trim().escape(),
+  body('gender', 'Firstname must not be empty.').inIn(['Male', 'Female', 'Other']).trim().escape(),
+  body('phone', 'Phone number already in use').custom(value => {
+    return Profile.find({phone: value}).then(profile => {
+      if (profile) {
+        return Promise.reject('Phone number already in use');
+      }
+    });
+  }).trim().escape()
+  async (req, res, next) => {
+    try {
+      const profile = await Profile.findByIdAndUpdate(req.params.id, { $set: req.body });
+      res.status(200);
+      res.json({message: 'Profile updated successfully', profile});
+    } catch (error) {
+      res.json(error)
+      next();
+    }
   }
 };
 
