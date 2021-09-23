@@ -42,8 +42,8 @@ exports.project_create = async (req, res, next) => {
       req.body.stack = new Array(req.body.stack);
     }
   }
-  [body('name', 'Name must not be empty.').isLength({ min: 3 }).trim().escape(),
-  body('description', 'Description must not be empty.').isLength({ min: 15 }).trim().escape(),
+  [body('name').isLength({ min: 3 }).withMessage('Name must not be empty.').trim().escape(),
+  body('description').isLength({ min: 15 }).withMessage('Description must not be empty.').trim().escape(),
   body('year', 'year must be in the range (1980-2100)').custom(value=>{
     if(value < 1980 || value > 2100){
       throw new Error('Years does not match range (1980-2100)');
@@ -88,14 +88,15 @@ exports.project_update = async (req, res, next) => {
       req.body.stack = new Array(req.body.stack);
     }
   }
-  [body('name', 'Name must not be empty.').isLength({ min: 3 }).trim().escape(),
-  body('description', 'Description must not be empty.').isLength({ min: 15 }).trim().escape(),
+  [body('name').isLength({ min: 3 }).withMessage('Name must not be empty.').trim().escape(),
+  body('description').isLength({ min: 15 }).withMessage('Description must not be empty.').trim().escape(),
   body('year', 'year must be in the range (1980-2100)').custom(value=>{
     if(value < 1980 || value > 2100){
       throw new Error('Years does not match range (1980-2100)');
     }
+    return true;
   }).toInt().trim().escape(),
-  body('status', 'Wrong data, does not match predefined values').isIn(['Development', 'Standby', 'Production']).trim().escape(),
+  body('status').isIn(['Development', 'Standby', 'Production']).withMessage('Wrong data, does not match predefined values').trim().escape(),
   body('stack.*').escape(),]
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

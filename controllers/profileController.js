@@ -23,11 +23,11 @@ exports.profile_detail = async (req, res, next) => {
 };
 
 exports.profile_create = async (req, res, next) => {
-  [body('firstname', 'Firstname must not be empty.').isLength({ min: 3 }).trim().escape(),
-  body('lastname', 'Lastname must not be empty.').isLength({ min: 3 }).trim().escape(),
-  body('dob', 'Must be a date').isDate(),
-  body('email', 'Description must not be empty.').isEmail().trim().escape(),
-  body('gender', 'Firstname must not be empty.').not().isIn(['Male', 'Female', 'Other']).trim().escape(),
+  [body('firstname').isLength({ min: 3 }).withMessage('Firstname must not be empty.').trim().escape(),
+  body('lastname').isLength({ min: 3 }).withMessage('Lastname must not be empty.').trim().escape(),
+  body('dob').isDate().withMessage('Must be a date'),
+  body('email').isEmail().trim().escape(),
+  body('gender').not().isIn(['Male', 'Female', 'Other']).trim().escape(),
   body('phone', 'Phone number already in use').custom(value => {
     return Profile.find({phone: value}).then(profile => {
       if (profile) {
@@ -62,12 +62,12 @@ exports.profile_create = async (req, res, next) => {
 };
 
 exports.profile_update = async (req, res, next) => {
-  [body('firstname', 'Firstname must not be empty.').isLength({ min: 3 }).trim().escape(),
-  body('lastname', 'Lastname must not be empty.').isLength({ min: 3 }).trim().escape(),
-  body('dob', 'Must be a date').isDate(),
-  body('email', 'Description must not be empty.').isEmail().trim().escape(),
-  body('gender', 'Firstname must not be empty.').isIn(['Male', 'Female', 'Other']).trim().escape(),
-  body('phone', 'Phone number already in use').custom(value => {
+  [body('firstname').isLength({ min: 3 }).trim().escape(),
+  body('lastname').isLength({ min: 3 }).trim().escape(),
+  body('dob').isDate(),
+  body('email').isEmail().trim().escape(),
+  body('gender').isIn(['Male', 'Female', 'Other']).trim().escape(),
+  body('phone').custom(value => {
     return Profile.find({phone: value}).then(profile => {
       if (profile) {
         return Promise.reject('Phone number already in use');

@@ -2,8 +2,8 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var ProfileSchema = new Schema({
-    firstname: {type: String, required: [true, 'Profile firstname required'], min: 3, max: 20},
-    lastname: {type: String, required: [true, 'Profile lastname required'], min: 3, max: 20},
+    firstname: {type: String, required: [true, 'Profile firstname required'], minlength: 3, maxlength: 20},
+    lastname: {type: String, required: [true, 'Profile lastname required'], minlength: 3, maxlength: 20},
     dob: { type: Date, null: true, blank: true},
     avatar: {type: String},
     email: {
