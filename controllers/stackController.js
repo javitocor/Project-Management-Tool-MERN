@@ -38,6 +38,7 @@ exports.stack_create = async (req, res, next) => {
     next();
   }
 };
+
 exports.stack_update = async (req, res, next) => {
   try {
     await Stack.findByIdAndUpdate(req.params.id, { $set: req.body });
@@ -48,6 +49,7 @@ exports.stack_update = async (req, res, next) => {
     next();
   }
 };
+
 exports.stack_delete = async (req, res, next) => {
   try {
     await Stack.findByIdAndDelete(req.params.id);
