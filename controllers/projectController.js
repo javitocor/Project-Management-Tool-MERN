@@ -41,34 +41,32 @@ exports.project_create = async (req, res, next) => {
     } else {
       req.body.stack = new Array(req.body.stack);
     }
-  }
-  
-  
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(422).json({
-        errors: errors.array()
-      });
-    };
+  }  
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({
+      errors: errors.array()
+    });
+  };
 
-    try {
-      const {name, description, year, status, stack, links} = req.body;
-      const project = new Project({
-        name,
-        description,
-        year,
-        status,
-        stack,
-        links,
-        /*images: req.file.filename,*/
-      });
-      await project.save();
-      res.status(201);
-      res.json({message: 'Project created successfully', project});
-    } catch (error) {
-      res.json(error)
-      next();
-    }
+  try {
+    const {name, description, year, status, stack, links} = req.body;
+    const project = new Project({
+      name,
+      description,
+      year,
+      status,
+      stack,
+      links,
+      /*images: req.file.filename,*/
+    });
+    await project.save();
+    res.status(201);
+    res.json({message: 'Project created successfully', project});
+  } catch (error) {
+    res.json(error)
+    next();
+  }
 };
 
 exports.project_update = async (req, res, next) => {
@@ -79,21 +77,21 @@ exports.project_update = async (req, res, next) => {
       req.body.stack = new Array(req.body.stack);
     }
   }
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(422).json({
-        errors: errors.array()
-      });
-    };
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).json({
+      errors: errors.array()
+    });
+  };
 
-    try {
-      const project = await Project.findByIdAndUpdate(req.params.id, { $set: req.body }, {new: true});
-      res.status(200);
-      res.json({message: 'Project updated successfully', project});
-    } catch (error) {
-      res.json(error)
-      next();
-    }
+  try {
+    const project = await Project.findByIdAndUpdate(req.params.id, { $set: req.body }, {new: true});
+    res.status(200);
+    res.json({message: 'Project updated successfully', project});
+  } catch (error) {
+    res.json(error)
+    next();
+  }
 };
 
 exports.project_delete = async (req, res, next) => {
