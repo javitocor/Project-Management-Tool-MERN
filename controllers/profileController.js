@@ -27,7 +27,7 @@ exports.profile_create = async (req, res, next) => {
   body('lastname', 'Lastname must not be empty.').isLength({ min: 3 }).trim().escape(),
   body('dob', 'Must be a date').isDate(),
   body('email', 'Description must not be empty.').isEmail().trim().escape(),
-  body('gender', 'Firstname must not be empty.').inIn(['Male', 'Female', 'Other']).trim().escape(),
+  body('gender', 'Firstname must not be empty.').not().isIn(['Male', 'Female', 'Other']).trim().escape(),
   body('phone', 'Phone number already in use').custom(value => {
     return Profile.find({phone: value}).then(profile => {
       if (profile) {
@@ -50,7 +50,7 @@ exports.profile_create = async (req, res, next) => {
         email,
         gender,
         phone,
-        avatar: req.file.filename,
+        /*avatar: req.file.filename,*/
       });
       await profile.save();
       res.status(201);
@@ -66,7 +66,7 @@ exports.profile_update = async (req, res, next) => {
   body('lastname', 'Lastname must not be empty.').isLength({ min: 3 }).trim().escape(),
   body('dob', 'Must be a date').isDate(),
   body('email', 'Description must not be empty.').isEmail().trim().escape(),
-  body('gender', 'Firstname must not be empty.').inIn(['Male', 'Female', 'Other']).trim().escape(),
+  body('gender', 'Firstname must not be empty.').isIn(['Male', 'Female', 'Other']).trim().escape(),
   body('phone', 'Phone number already in use').custom(value => {
     return Profile.find({phone: value}).then(profile => {
       if (profile) {
@@ -81,7 +81,7 @@ exports.profile_update = async (req, res, next) => {
       });
     };
     try {
-      const profile = await Profile.findByIdAndUpdate(req.params.id, { $set: req.body });
+      const profile = await Profile.findByIdAndUpdate(req.params.id, { $set: req.body }, {new: true});
       res.status(200);
       res.json({message: 'Profile updated successfully', profile});
     } catch (error) {

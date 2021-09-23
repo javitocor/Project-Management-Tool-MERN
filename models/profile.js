@@ -3,7 +3,7 @@ var Schema = mongoose.Schema;
 
 var ProfileSchema = new Schema({
     firstname: {type: String, required: [true, 'Profile firstname required'], min: 3, max: 20},
-    lastanme: {type: String, required: [true, 'Profile lastname required'], min: 3, max: 20},
+    lastname: {type: String, required: [true, 'Profile lastname required'], min: 3, max: 20},
     dob: { type: Date, null: true, blank: true},
     avatar: {type: String},
     email: {
@@ -18,12 +18,12 @@ var ProfileSchema = new Schema({
       type: String,
       trim: true,
       enum: ['Male', 'Female', 'Other'], 
-      default: null
+      default: 'Other'
     },
     phone:{
       type     : Number,
       unique   : true,
-      default: null,
+      default: undefined,
       validate : {
         validator : Number.isInteger,
         message   : '{VALUE} is not an integer value'

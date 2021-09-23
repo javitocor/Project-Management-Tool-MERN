@@ -42,7 +42,6 @@ exports.project_create = async (req, res, next) => {
       req.body.stack = new Array(req.body.stack);
     }
   }
-  next();
   [body('name', 'Name must not be empty.').isLength({ min: 3 }).trim().escape(),
   body('description', 'Description must not be empty.').isLength({ min: 15 }).trim().escape(),
   body('year', 'year must be in the range (1980-2100)').custom(value=>{
@@ -70,11 +69,11 @@ exports.project_create = async (req, res, next) => {
         status,
         stack,
         links,
-        images: req.file.filename,
+        /*images: req.file.filename,*/
       });
       await project.save();
       res.status(201);
-      res.json({message: 'Project created successfully'});
+      res.json({message: 'Project created successfully', project});
     } catch (error) {
       res.json(error)
       next();
@@ -89,14 +88,12 @@ exports.project_update = async (req, res, next) => {
       req.body.stack = new Array(req.body.stack);
     }
   }
-  next();
   [body('name', 'Name must not be empty.').isLength({ min: 3 }).trim().escape(),
   body('description', 'Description must not be empty.').isLength({ min: 15 }).trim().escape(),
   body('year', 'year must be in the range (1980-2100)').custom(value=>{
     if(value < 1980 || value > 2100){
       throw new Error('Years does not match range (1980-2100)');
     }
-    return true;
   }).toInt().trim().escape(),
   body('status', 'Wrong data, does not match predefined values').isIn(['Development', 'Standby', 'Production']).trim().escape(),
   body('stack.*').escape(),]
@@ -108,7 +105,7 @@ exports.project_update = async (req, res, next) => {
     };
 
     try {
-      const project = await Project.findByIdAndUpdate(req.params.id, { $set: req.body });
+      const project = await Project.findByIdAndUpdate(req.params.id, { $set: req.body }, {new: true});
       res.status(200);
       res.json({message: 'Project updated successfully', project});
     } catch (error) {

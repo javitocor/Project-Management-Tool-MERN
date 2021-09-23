@@ -29,7 +29,6 @@ exports.stack_create = async (req, res, next) => {
     if(value < 1950 || value > 2100){
       throw new Error('Years does not match range (1950-2100)');
     }
-    return true;
   }),]
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
