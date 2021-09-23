@@ -22,16 +22,15 @@ exports.stack_detail = async (req, res, next) => {
   }
 };
 
-exports.stack_create = (req, res, next) => {
-  body('name', 'Name must not be empty.').isLength({ min: 3 }).trim().escape(),
+exports.stack_create = async (req, res, next) => {
+ [ body('name', 'Name must not be empty.').isLength({ min: 3 }).trim().escape(),
   body('description', 'Description must not be empty.').isLength({ min: 15 }).trim().escape(),
   body('released_year', 'released_year must be between 1950 and 2100.').custom(value=>{
     if(value < 1950 || value > 2100){
       throw new Error('Years does not match range (1950-2100)');
     }
     return true;
-  }),
-  async (req, res, next) => {
+  }),]
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({
@@ -53,19 +52,17 @@ exports.stack_create = (req, res, next) => {
       res.json(error)
       next();
     }
-  }
 };
 
-exports.stack_update = (req, res, next) => {
-  body('name', 'Name must not be empty.').isLength({ min: 3 }).trim().escape(),
+exports.stack_update = async (req, res, next) => {
+  [body('name', 'Name must not be empty.').isLength({ min: 3 }).trim().escape(),
   body('description', 'Description must not be empty.').isLength({ min: 15 }).trim().escape(),
   body('released_year', 'released_year must be between 1950 and 2100.').custom(value=>{
     if(value < 1950 || value > 2100){
       throw new Error('Years does not match range (1950-2100)');
     }
     return true;
-  }).toInt().trim().escape(),
-  async (req, res, next) => {
+  }).toInt().trim().escape(),]
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({
@@ -73,14 +70,13 @@ exports.stack_update = (req, res, next) => {
       });
     };
     try {
-      const stack = await Stack.findByIdAndUpdate(req.params.id, { $set: req.body });
+      const stack = await Stack.findByIdAndUpdate(req.params.id, { $set: req.body }, {new: true});
       res.status(200);
       res.json({message: 'Stack updated successfully', stack});
     } catch (error) {
       res.json(error)
       next();
     }
-  }
 };
 
 exports.stack_delete = async (req, res, next) => {

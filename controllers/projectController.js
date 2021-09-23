@@ -34,7 +34,7 @@ exports.project_create_get = async(req, res, next) => {
   }
 };
 
-exports.project_create = (req, res, next) => {
+exports.project_create = async (req, res, next) => {
   if (!(req.body.stack instanceof Array)) {
     if (typeof req.body.stack === 'undefined') {
       req.body.stack = [];
@@ -43,7 +43,7 @@ exports.project_create = (req, res, next) => {
     }
   }
   next();
-  body('name', 'Name must not be empty.').isLength({ min: 3 }).trim().escape(),
+  [body('name', 'Name must not be empty.').isLength({ min: 3 }).trim().escape(),
   body('description', 'Description must not be empty.').isLength({ min: 15 }).trim().escape(),
   body('year', 'year must be in the range (1980-2100)').custom(value=>{
     if(value < 1980 || value > 2100){
@@ -52,8 +52,8 @@ exports.project_create = (req, res, next) => {
     return true;
   }).toInt().trim().escape(),
   body('status', 'Wrong data, does not match predefined values').isIn(['Development', 'Standby', 'Production']).trim().escape(),
-  body('stack.*').escape(),
-  async (req, res, next) => {
+  body('stack.*').escape(),]
+  
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({
@@ -79,10 +79,9 @@ exports.project_create = (req, res, next) => {
       res.json(error)
       next();
     }
-  }
 };
 
-exports.project_update = (req, res, next) => {
+exports.project_update = async (req, res, next) => {
   if (!(req.body.stack instanceof Array)) {
     if (typeof req.body.stack === 'undefined') {
       req.body.stack = [];
@@ -91,7 +90,7 @@ exports.project_update = (req, res, next) => {
     }
   }
   next();
-  body('name', 'Name must not be empty.').isLength({ min: 3 }).trim().escape(),
+  [body('name', 'Name must not be empty.').isLength({ min: 3 }).trim().escape(),
   body('description', 'Description must not be empty.').isLength({ min: 15 }).trim().escape(),
   body('year', 'year must be in the range (1980-2100)').custom(value=>{
     if(value < 1980 || value > 2100){
@@ -100,8 +99,7 @@ exports.project_update = (req, res, next) => {
     return true;
   }).toInt().trim().escape(),
   body('status', 'Wrong data, does not match predefined values').isIn(['Development', 'Standby', 'Production']).trim().escape(),
-  body('stack.*').escape(),
-  async (req, res, next) => {
+  body('stack.*').escape(),]
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({
@@ -117,7 +115,6 @@ exports.project_update = (req, res, next) => {
       res.json(error)
       next();
     }
-  }
 };
 
 exports.project_delete = async (req, res, next) => {

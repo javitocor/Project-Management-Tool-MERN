@@ -22,8 +22,8 @@ exports.profile_detail = async (req, res, next) => {
   }
 };
 
-exports.profile_create = (req, res, next) => {
-  body('firstname', 'Firstname must not be empty.').isLength({ min: 3 }).trim().escape(),
+exports.profile_create = async (req, res, next) => {
+  [body('firstname', 'Firstname must not be empty.').isLength({ min: 3 }).trim().escape(),
   body('lastname', 'Lastname must not be empty.').isLength({ min: 3 }).trim().escape(),
   body('dob', 'Must be a date').isDate(),
   body('email', 'Description must not be empty.').isEmail().trim().escape(),
@@ -34,8 +34,13 @@ exports.profile_create = (req, res, next) => {
         return Promise.reject('Phone number already in use');
       }
     });
-  }).trim().escape()
-  async (req, res, next) => {
+  }).trim().escape()]
+  const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({
+        errors: errors.array()
+      });
+    };
     try {
       const {firstname, lastname, dob, email, gender, phone} = req.body;
       const profile = new Profile({
@@ -54,11 +59,10 @@ exports.profile_create = (req, res, next) => {
       res.json(error)
       next();
     }
-  }
 };
 
-exports.profile_update = (req, res, next) => {
-  body('firstname', 'Firstname must not be empty.').isLength({ min: 3 }).trim().escape(),
+exports.profile_update = async (req, res, next) => {
+  [body('firstname', 'Firstname must not be empty.').isLength({ min: 3 }).trim().escape(),
   body('lastname', 'Lastname must not be empty.').isLength({ min: 3 }).trim().escape(),
   body('dob', 'Must be a date').isDate(),
   body('email', 'Description must not be empty.').isEmail().trim().escape(),
@@ -69,8 +73,13 @@ exports.profile_update = (req, res, next) => {
         return Promise.reject('Phone number already in use');
       }
     });
-  }).trim().escape()
-  async (req, res, next) => {
+  }).trim().escape()]
+  const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({
+        errors: errors.array()
+      });
+    };
     try {
       const profile = await Profile.findByIdAndUpdate(req.params.id, { $set: req.body });
       res.status(200);
@@ -79,7 +88,6 @@ exports.profile_update = (req, res, next) => {
       res.json(error)
       next();
     }
-  }
 };
 
 exports.profile_delete = async (req, res, next) => {
