@@ -50,12 +50,11 @@ exports.project_create = async (req, res, next) => {
   };
 
   try {
-    const {name, description, year, status, stack, github, liveLink} = req.body;
+    const {name, description, year, stack, github, liveLink} = req.body;
     const project = new Project({
       name,
       description,
       year,
-      status,
       stack,
       links: {},
       /*images: req.file.filename,*/

@@ -4,7 +4,13 @@ const { body } = require("express-validator");
 exports.projectValidations = [
   body('name').trim().not().isEmpty().withMessage('Name cannot be empty').isLength({ min: 3 }).withMessage('Name must be at least 3 char long.').isLength({ max: 20 }).withMessage('Name max lenght is 20.').escape(),
   body('description').trim().not().isEmpty().withMessage('Description cannot be empty').isLength({ min: 15 }).withMessage('Description must be at least 15 char long.').isLength({ max: 2000 }).withMessage('Description max length is 2000.').escape(),
-  
+  body('year').toInt().custom(value => {
+    if(value < 1980 || value > 2100){
+      throw new Error('Year does not match range (1980-2100)');
+    }
+    return true
+  }).trim().escape().optional(),
+  body('status', 'Wrong data, does not match predefined values. (["Development", "Standby", "Production"])').isIn(['Development', 'Standby', 'Production']).trim().escape(),
   body('stack.*').escape()
 ];
 
