@@ -64,7 +64,7 @@ exports.stack_update = (req, res, next) => {
       throw new Error('Years does not match range (1950-2100)');
     }
     return true;
-  }),
+  }).toInt().trim().escape(),
   async (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

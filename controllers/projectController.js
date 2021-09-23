@@ -1,4 +1,5 @@
 const Project = require('../models/project');
+const Stack = require('../models/stack');
 
 const { body, validationResult } = require("express-validator");
 
@@ -23,32 +24,99 @@ exports.project_detail = async (req, res, next) => {
   }
 };
 
-exports.project_create = async (req, res, next) => {
-  const {name, date, max_tickets, ongoing} = req.body;
-  const project = new Project({
-    name,
-    date,
-    max_tickets,
-    ongoing,
-  });
+exports.project_create_get = async(req, res, next) => {
   try {
-    await project.save();
-    res.status(201);
-    res.json({message: 'Project created successfully'});
+    const stacks = await Stack.find({}).select("-__v -description -released_year");
+    res.json(stacks);
   } catch (error) {
-    res.json(error)
+    res.json(error);
     next();
   }
 };
 
-exports.project_update = async (req, res, next) => {
-  try {
-    await Project.findByIdAndUpdate(req.params.id, { $set: req.body });
-    res.status(200);
-    res.json({message: 'Project updated successfully'});
-  } catch (error) {
-    res.json(error)
-    next();
+exports.project_create = (req, res, next) => {
+  if (!(req.body.stack instanceof Array)) {
+    if (typeof req.body.stack === 'undefined') {
+      req.body.stack = [];
+    } else {
+      req.body.stack = new Array(req.body.stack);
+    }
+  }
+  next();
+  body('name', 'Name must not be empty.').isLength({ min: 3 }).trim().escape(),
+  body('description', 'Description must not be empty.').isLength({ min: 15 }).trim().escape(),
+  body('year', 'year must be in the range (1980-2100)').custom(value=>{
+    if(value < 1980 || value > 2100){
+      throw new Error('Years does not match range (1980-2100)');
+    }
+    return true;
+  }).toInt().trim().escape(),
+  body('status', 'Wrong data, does not match predefined values').isIn(['Development', 'Standby', 'Production']).trim().escape(),
+  body('stack.*').escape(),
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({
+        errors: errors.array()
+      });
+    };
+
+    try {
+      const {name, description, year, status, stack, links} = req.body;
+      const project = new Project({
+        name,
+        description,
+        year,
+        status,
+        stack,
+        links,
+        images: req.file.filename,
+      });
+      await project.save();
+      res.status(201);
+      res.json({message: 'Project created successfully'});
+    } catch (error) {
+      res.json(error)
+      next();
+    }
+  }
+};
+
+exports.project_update = (req, res, next) => {
+  if (!(req.body.stack instanceof Array)) {
+    if (typeof req.body.stack === 'undefined') {
+      req.body.stack = [];
+    } else {
+      req.body.stack = new Array(req.body.stack);
+    }
+  }
+  next();
+  body('name', 'Name must not be empty.').isLength({ min: 3 }).trim().escape(),
+  body('description', 'Description must not be empty.').isLength({ min: 15 }).trim().escape(),
+  body('year', 'year must be in the range (1980-2100)').custom(value=>{
+    if(value < 1980 || value > 2100){
+      throw new Error('Years does not match range (1980-2100)');
+    }
+    return true;
+  }).toInt().trim().escape(),
+  body('status', 'Wrong data, does not match predefined values').isIn(['Development', 'Standby', 'Production']).trim().escape(),
+  body('stack.*').escape(),
+  async (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).json({
+        errors: errors.array()
+      });
+    };
+
+    try {
+      const project = await Project.findByIdAndUpdate(req.params.id, { $set: req.body });
+      res.status(200);
+      res.json({message: 'Project updated successfully', project});
+    } catch (error) {
+      res.json(error)
+      next();
+    }
   }
 };
 
