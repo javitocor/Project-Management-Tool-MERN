@@ -1,5 +1,7 @@
 const Profile = require('../models/profile');
 
+const { body, validationResult } = require("express-validator");
+
 exports.profile_list = async (req, res, next) => {
   try {
     const profiles = await Profile.find({}).select("-__v");
