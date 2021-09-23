@@ -10,7 +10,6 @@ var ProjectSchema = new Schema({
     links: {
       type: Map,
       of: String,
-      null: true, blank: true
     },
     status: {type: String, required: true, enum: ['Development', 'Standby', 'Production'], default: 'Production'},
     created_at: { type: Date, default: Date.now },

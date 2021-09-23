@@ -1,6 +1,6 @@
 const Stack = require('../models/stack');
 
-const { body, validationResult } = require("express-validator");
+const { validationResult } = require("express-validator");
 
 exports.stack_list = async (req, res, next) => {
   try {

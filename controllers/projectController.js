@@ -6,7 +6,7 @@ const { validationResult } = require("express-validator");
 
 exports.project_list = async (req, res, next) => {
   try {
-    const projects = await Project.find({}).select("-__v");
+    const projects = await Project.find({}).select("-__v").populate('stack', { name: 1 });
     res.json(projects);
   } catch (error) {
     res.json(error)
@@ -16,7 +16,7 @@ exports.project_list = async (req, res, next) => {
 
 exports.project_detail = async (req, res, next) => {
   try {
-    const project = await Project.findById(req.params.id).select("-__v");
+    const project = await Project.findById(req.params.id).select("-__v").populate('stack', { name: 1 });
     res.json({project});
   } catch (error) {
     res.json(error)
@@ -50,16 +50,22 @@ exports.project_create = async (req, res, next) => {
   };
 
   try {
-    const {name, description, year, status, stack, links} = req.body;
+    const {name, description, year, status, stack, github, liveLink} = req.body;
     const project = new Project({
       name,
       description,
       year,
       status,
       stack,
-      links,
+      links: {},
       /*images: req.file.filename,*/
     });
+    if (github) {
+      await project.links.set('Github', github)
+    };
+    if (liveLink) {
+      await project.links.set('Live Link', liveLink)
+    };
     await project.save();
     res.status(201);
     res.json({message: 'Project created successfully', project});
@@ -85,7 +91,15 @@ exports.project_update = async (req, res, next) => {
   };
 
   try {
+    const {github, liveLink} = req.body;
     const project = await Project.findByIdAndUpdate(req.params.id, { $set: req.body, updated_at: Date.now() }, {new: true});
+    if (github) {
+      await project.links.set('Github', github)
+    };
+    if (liveLink) {
+      await project.links.set('Live Link', liveLink)
+    };
+    await project.save();
     res.status(200);
     res.json({message: 'Project updated successfully', project});
   } catch (error) {
