@@ -45,10 +45,11 @@ exports.profile_create = (req, res, next) => {
         email,
         gender,
         phone,
+        avatar: req.file.filename,
       });
       await profile.save();
       res.status(201);
-      res.json({message: 'Profile created successfully'});
+      res.json({message: 'Profile created successfully', profile});
     } catch (error) {
       res.json(error)
       next();
