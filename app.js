@@ -6,8 +6,9 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var stacksRouter = require('./routes/stack');
+var projectsRouter = require('./routes/project');
+var profileRouter = require('./routes/profile');
 
 var app = express();
 
@@ -31,8 +32,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, './frontend/build/static')));
 
-app.use('/api/', indexRouter);
-app.use('/api/users', usersRouter);
+app.use('/api/stacks', stacksRouter);
+app.use('/api/projects', projectsRouter);
+app.use('/api/profile'), profileRouter;
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, './frontend/build/index.html'));
