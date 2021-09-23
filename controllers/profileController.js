@@ -1,6 +1,6 @@
 const Profile = require('../models/profile');
 
-const { body, validationResult } = require("express-validator");
+const { validationResult } = require("express-validator");
 
 exports.profile_list = async (req, res, next) => {
   try {
@@ -22,19 +22,7 @@ exports.profile_detail = async (req, res, next) => {
   }
 };
 
-exports.profile_create = async (req, res, next) => {
-  [body('firstname').isLength({ min: 3 }).withMessage('Firstname must not be empty.').trim().escape(),
-  body('lastname').isLength({ min: 3 }).withMessage('Lastname must not be empty.').trim().escape(),
-  body('dob').isDate().withMessage('Must be a date'),
-  body('email').isEmail().trim().escape(),
-  body('gender').not().isIn(['Male', 'Female', 'Other']).trim().escape(),
-  body('phone', 'Phone number already in use').custom(value => {
-    return Profile.find({phone: value}).then(profile => {
-      if (profile) {
-        return Promise.reject('Phone number already in use');
-      }
-    });
-  }).trim().escape()]
+exports.profile_create = async (req, res, next) => {  
   const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({
@@ -61,19 +49,7 @@ exports.profile_create = async (req, res, next) => {
     }
 };
 
-exports.profile_update = async (req, res, next) => {
-  [body('firstname').isLength({ min: 3 }).trim().escape(),
-  body('lastname').isLength({ min: 3 }).trim().escape(),
-  body('dob').isDate(),
-  body('email').isEmail().trim().escape(),
-  body('gender').isIn(['Male', 'Female', 'Other']).trim().escape(),
-  body('phone').custom(value => {
-    return Profile.find({phone: value}).then(profile => {
-      if (profile) {
-        return Promise.reject('Phone number already in use');
-      }
-    });
-  }).trim().escape()]
+exports.profile_update = async (req, res, next) => {  
   const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({
