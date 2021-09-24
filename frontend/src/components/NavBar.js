@@ -105,7 +105,7 @@ class NavBar extends Component {
               </li>
             </ul>
           </nav>
-          <div id="content">
+          <div id={navbar.content}>
             {this.props.children}
           </div>
         </div>

@@ -1,17 +1,22 @@
 .wrapper {
   display: flex;
   align-items: stretch;
+  height: 100vh;
+}
+
+#content {
+  width: 100% !important;
 }
 
 #sidebar {
   min-width: 250px;
   max-width: 250px;
   min-height: 100vh;
+  padding: 10px;
 }
 
 .active {
   margin-left: -250px !important;
-  background-color: white;
 }
 
 a[data-toggle="collapse"] {
@@ -32,9 +37,8 @@ a[data-toggle="collapse"] {
   transition: all 0.3s;
 }
 
-#sidebar #sidebarheader {
+#sidebar .sidebarheader {
   padding: 20px;
-  background: #6d7fcc;
 }
 
 #sidebar ul.components {

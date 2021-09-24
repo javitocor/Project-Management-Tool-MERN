@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NavBar from './NavBar';
@@ -27,13 +28,11 @@ const App = () => (
     <Router>
       <Switch>
         <>
-          <div className={style.content}>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/stacks" component={StacksList} />
-            <Route exact path="/profile" component={Profile} />
-            <Route exact path="/project/:name" component={ProjectDetail} />
-            <Route exact path="/stack/:name" component={StackDetail} />
-          </div>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/stacks" component={StacksList} />
+          <Route exact path="/profile" component={Profile} />
+          <Route exact path="/project/:name" component={ProjectDetail} />
+          <Route exact path="/stack/:name" component={StackDetail} />
         </>
       </Switch>
     </Router>
