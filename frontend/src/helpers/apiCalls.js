@@ -110,3 +110,44 @@ export const CreateCall = (route, token, data) => async dispatch => {
     } 
   }
 };
+
+export const UpdateCall = (route, token, data, id) => async dispatch => {
+  const url = `${URL_BASIC + route}`
+  try {
+    if(route==='stacks'){
+      dispatch(stacks.stacksPending());
+    } else if (route==='projects') {
+      dispatch(projects.projectsPending());
+    } else if (route==='profile'){
+      dispatch(profile.profilesPending());
+    }      
+
+    const response = await fetch(`${url}/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': token,
+      },
+      redirect: 'error',
+      body: JSON.stringify(data),
+    });
+    const newData = await response.json();
+    if(route==='stacks'){
+      dispatch(stacks.updateStack(newData.stack));
+    } else if (route==='projects') {
+      dispatch(projects.updateProject(newData.project));
+    } else if (route==='profile'){
+      dispatch(profile.updateProfile(newData.profile));
+    }    
+    return newData;
+  } catch (error) {
+    if(route==='stacks'){
+      dispatch(stacks.stacksError(error));
+    } else if (route==='projects') {
+      dispatch(projects.projectsError(error));
+    } else if (route==='profile'){
+      dispatch(profile.profilesError(error));
+    } 
+  }
+};
