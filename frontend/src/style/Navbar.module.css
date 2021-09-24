@@ -9,9 +9,11 @@
   min-height: 100vh;
 }
 
-#sidebar.active {
-  margin-left: -250px;
+.active {
+  margin-left: -250px !important;
+  background-color: white;
 }
+
 a[data-toggle="collapse"] {
   position: relative;
 }
@@ -30,7 +32,7 @@ a[data-toggle="collapse"] {
   transition: all 0.3s;
 }
 
-#sidebar .sidebarheader {
+#sidebar #sidebarheader {
   padding: 20px;
   background: #6d7fcc;
 }

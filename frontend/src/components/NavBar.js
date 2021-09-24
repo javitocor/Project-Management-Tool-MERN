@@ -1,15 +1,26 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-useless-constructor */
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import $ from 'jquery';
 import navbar from '../style/Navbar.module.css';
 
 class NavBar extends Component {
   constructor(props) {
     super(props);
-    
+    this.state = {
+      active: false,
+    };
+    this.toggleClass = this.toggleClass.bind(this);
   }
+
+  toggleClass() {
+    console.log('hello')
+    const currentState = this.state.active;
+    this.setState({ active: !currentState });
+  };
 
   render() {
 
@@ -26,7 +37,7 @@ class NavBar extends Component {
                 <nav className="navbar navbar-expand navbar-dark bg-dark">
                   <div className="container-fluid">
           
-                    <button type="button" id="sidebarCollapse" className="btn btn-dark">
+                    <button type="button" id="sidebarCollapse" className="btn btn-dark" onClick={()=>this.toggleClass()}>
                       <i className="fas fa-align-left" />
                     </button>
           
@@ -34,7 +45,7 @@ class NavBar extends Component {
                 </nav>
               </li>          
             </ul>
-            <div className="navbar-nav dropdown pl-5">
+            <div className="navbar-nav dropdown dropleft">
               <a className="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Username
               </a>
@@ -48,7 +59,7 @@ class NavBar extends Component {
           </div>
         </nav>
         <div className={navbar.wrapper}>
-          <nav id="sidebar" className='bg-dark'>
+          <nav id={navbar.sidebar} className={`bg-dark ${this.state.active ? "active": null}`} style={{ margin: this.state.active ? '0 0 0 -250px': '0'}}> 
             <div className={`${navbar.sidebarheader} bg-dark`}>
               <h3>Project Management</h3>
             </div>
