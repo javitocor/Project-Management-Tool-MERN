@@ -7,6 +7,7 @@ import StacksList from '../containers/StacksList';
 import Profile from '../containers/Profile';
 import ProjectDetail from '../containers/ProjectDetail';
 import StackDetail from '../containers/StackDetail';
+import ProjectsList from '../containers/ProjectsList';
 import style from '../style/App.module.css';
 
 const App = () => (
@@ -29,6 +30,7 @@ const App = () => (
       <Switch>
         <>
           <Route exact path="/" component={Home} />
+          <Route exact path="/projects" component={ProjectsList} />
           <Route exact path="/stacks" component={StacksList} />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/project/:name" component={ProjectDetail} />

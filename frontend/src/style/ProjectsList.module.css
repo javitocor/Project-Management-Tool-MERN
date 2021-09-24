@@ -1,0 +1,7 @@
+.jumbo {
+  background: url('https://images.pexels.com/photos/356043/pexels-photo-356043.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=1200') no-repeat center center fixed !important; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover !important;
+}
