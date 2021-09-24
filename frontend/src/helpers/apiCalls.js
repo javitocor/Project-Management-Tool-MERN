@@ -69,3 +69,44 @@ export const SingleCall = (route, id) => async dispatch => {
     } 
   }
 };
+
+export const CreateCall = (route, token, data) => async dispatch => {
+  const url = `${URL_BASIC + route}`
+  try {
+    if(route==='stacks'){
+      dispatch(stacks.stacksPending());
+    } else if (route==='projects') {
+      dispatch(projects.projectsPending());
+    } else if (route==='profile'){
+      dispatch(profile.profilesPending());
+    }      
+
+    const response = await fetch(`${url}/create`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': token,
+      },
+      redirect: 'error',
+      body: JSON.stringify(data),
+    });
+    const newData = await response.json();
+    if(route==='stacks'){
+      dispatch(stacks.createStack(newData.stack));
+    } else if (route==='projects') {
+      dispatch(projects.createProject(newData.project));
+    } else if (route==='profile'){
+      dispatch(profile.createProfile(newData.profile));
+    }    
+    return newData;
+  } catch (error) {
+    if(route==='stacks'){
+      dispatch(stacks.stacksError(error));
+    } else if (route==='projects') {
+      dispatch(projects.projectsError(error));
+    } else if (route==='profile'){
+      dispatch(profile.profilesError(error));
+    } 
+  }
+};
