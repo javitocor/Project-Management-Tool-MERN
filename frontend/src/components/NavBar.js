@@ -1,3 +1,6 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable no-useless-constructor */
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import navbar from '../style/Navbar.module.css';

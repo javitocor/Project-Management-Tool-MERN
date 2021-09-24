@@ -30,7 +30,7 @@ a[data-toggle="collapse"] {
   transition: all 0.3s;
 }
 
-#sidebar .sidebar-header {
+#sidebar .sidebarheader {
   padding: 20px;
   background: #6d7fcc;
 }
