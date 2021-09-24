@@ -151,3 +151,42 @@ export const UpdateCall = (route, token, data, id) => async dispatch => {
     } 
   }
 };
+
+export const DeleteCall = (route, token, id) => async dispatch => {
+  const url = `${URL_BASIC + route}`
+  try {
+    if(route==='stacks'){
+      dispatch(stacks.stacksPending());
+    } else if (route==='projects') {
+      dispatch(projects.projectsPending());
+    } else if (route==='profile'){
+      dispatch(profile.profilesPending());
+    }      
+
+    const response = await fetch(`${url}/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+        'X-CSRF-Token': token,
+      },
+    });
+    const newData = await response.json();
+    if(route==='stacks'){
+      dispatch(stacks.deleteStack(id));
+    } else if (route==='projects') {
+      dispatch(projects.deleteProject(id));
+    } else if (route==='profile'){
+      dispatch(profile.deleteProfile(id));
+    }    
+    return newData;
+  } catch (error) {
+    if(route==='stacks'){
+      dispatch(stacks.stacksError(error));
+    } else if (route==='projects') {
+      dispatch(projects.projectsError(error));
+    } else if (route==='profile'){
+      dispatch(profile.profilesError(error));
+    } 
+  }
+};
