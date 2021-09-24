@@ -4,7 +4,7 @@ import style from '../style/Profile.module.css';
 
 const Profile = () => {
   return (
-    <div className="container-fluid">
+    <div className={`container-fluid ${style.bggrey}`}>
       <div className="row">
         <div className={`${style.profilenav} col-md-3`}>
           <div className={style.panel}>

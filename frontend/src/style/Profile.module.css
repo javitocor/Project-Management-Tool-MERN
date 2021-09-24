@@ -62,6 +62,10 @@
   color: #89817f !important;
 }
 
+.bggrey {
+  background-color: #d4d3d3;
+}
+
 .list-group-item {
 border: none !important;
 }
@@ -101,6 +105,7 @@ border: none !important;
 }
 
 .biographheading {
+  margin-bottom: 1.5rem;
   background: #212529;
   color: #fff;
   text-align: center;
@@ -115,6 +120,8 @@ border: none !important;
 .biographinfo {
   color: #89817e;
   padding: 15px;
+  background-color: #fff;
+  margin-bottom: 1.5rem;
 }
 
 .biographinfo h1, .skillsheader {
@@ -169,202 +176,7 @@ border: none !important;
   color: #caa3da;
 }
 
-.file-pos {
-  margin: 6px 0 10px 0;
+.panel{
+  margin-bottom: 2rem;
 }
 
-.profile-activity h5 {
-  font-weight: 300;
-  margin-top: 0;
-  color: #c3c3c3;
-}
-
-.summary-head {
-  background: #ee7272;
-  color: #fff;
-  text-align: center;
-  border-bottom: 1px solid #ee7272;
-}
-
-.summary-head h4 {
-  font-weight: 300;
-  text-transform: uppercase;
-  margin-bottom: 5px;
-}
-
-.summary-head p {
-  color: rgba(255,255,255,0.6);
-}
-
-ul.summary-list {
-  display: inline-block;
-  padding-left:0 ;
-  width: 100%;
-  margin-bottom: 0;
-}
-
-ul.summary-list > li {
-  display: inline-block;
-  width: 19.5%;
-  text-align: center;
-}
-
-ul.summary-list > li > a > i {
-  display:block;
-  font-size: 18px;
-  padding-bottom: 5px;
-}
-
-ul.summary-list > li > a {
-  padding: 10px 0;
-  display: inline-block;
-  color: #818181;
-}
-
-ul.summary-list > li  {
-  border-right: 1px solid #eaeaea;
-}
-
-ul.summary-list > li:last-child  {
-  border-right: none;
-}
-
-.activity {
-  width: 100%;
-  float: left;
-  margin-bottom: 10px;
-}
-
-.activity.alt {
-  width: 100%;
-  float: right;
-  margin-bottom: 10px;
-}
-
-.activity span {
-  float: left;
-}
-
-.activity.alt span {
-  float: right;
-}
-.activity span, .activity.alt span {
-  width: 45px;
-  height: 45px;
-  line-height: 45px;
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  background: #eee;
-  text-align: center;
-  color: #fff;
-  font-size: 16px;
-}
-
-.activity.terques span {
-  background: #8dd7d6;
-}
-
-.activity.terques h4 {
-  color: #8dd7d6;
-}
-.activity.purple span {
-  background: #b984dc;
-}
-
-.activity.purple h4 {
-  color: #b984dc;
-}
-.activity.blue span {
-  background: #90b4e6;
-}
-
-.activity.blue h4 {
-  color: #90b4e6;
-}
-.activity.green span {
-  background: #aec785;
-}
-
-.activity.green h4 {
-  color: #aec785;
-}
-
-.activity h4 {
-  margin-top:0 ;
-  font-size: 16px;
-}
-
-.activity p {
-  margin-bottom: 0;
-  font-size: 13px;
-}
-
-.activity .activity-desk i, .activity.alt .activity-desk i {
-  float: left;
-  font-size: 18px;
-  margin-right: 10px;
-  color: #bebebe;
-}
-
-.activity .activity-desk {
-  margin-left: 70px;
-  position: relative;
-}
-
-.activity.alt .activity-desk {
-  margin-right: 70px;
-  position: relative;
-}
-
-.activity.alt .activity-desk .panel {
-  float: right;
-  position: relative;
-}
-
-.activity-desk .panel {
-  background: #F4F4F4 ;
-  display: inline-block;
-}
-
-
-.activity .activity-desk .arrow {
-  border-right: 8px solid #F4F4F4 !important;
-}
-.activity .activity-desk .arrow {
-  border-bottom: 8px solid transparent;
-  border-top: 8px solid transparent;
-  display: block;
-  height: 0;
-  left: -7px;
-  position: absolute;
-  top: 13px;
-  width: 0;
-}
-
-.activity-desk .arrow-alt {
-  border-left: 8px solid #F4F4F4 !important;
-}
-
-.activity-desk .arrow-alt {
-  border-bottom: 8px solid transparent;
-  border-top: 8px solid transparent;
-  display: block;
-  height: 0;
-  right: -7px;
-  position: absolute;
-  top: 13px;
-  width: 0;
-}
-
-.activity-desk .album {
-  display: inline-block;
-  margin-top: 10px;
-}
-
-.activity-desk .album a{
-  margin-right: 10px;
-}
-
-.activity-desk .album a:last-child{
-  margin-right: 0px;
-}
