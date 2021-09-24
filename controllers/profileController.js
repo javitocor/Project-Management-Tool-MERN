@@ -15,7 +15,7 @@ exports.profile_list = async (req, res, next) => {
 exports.profile_detail = async (req, res, next) => {
   try {
     const profile = await Profile.findById(req.params.id).select("-__v");
-    res.json({profile});
+    res.json(profile);
   } catch (error) {
     res.json(error)
     next();
