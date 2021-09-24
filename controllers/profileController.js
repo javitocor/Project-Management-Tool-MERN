@@ -30,10 +30,11 @@ exports.profile_create = async (req, res, next) => {
       });
     };
     try {
-      const {firstname, lastname, dob, email, gender, phone, github, linkedin, angelist} = req.body;
+      const {firstname, lastname, about, dob, email, gender, phone, github, linkedin, angelist} = req.body;
       const profile = new Profile({
         firstname,
         lastname,
+        about,
         dob,
         email,
         gender,

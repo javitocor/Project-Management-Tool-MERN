@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 var ProfileSchema = new Schema({
     firstname: {type: String, required: [true, 'Profile firstname required'], minlength: 3, maxlength: 20},
     lastname: {type: String, required: [true, 'Profile lastname required'], minlength: 3, maxlength: 20},
+    about: {type: String, minlength: 25, maxlength: 2500},
     dob: { type: Date, null: true, blank: true},
     avatar: {type: String},
     email: {
