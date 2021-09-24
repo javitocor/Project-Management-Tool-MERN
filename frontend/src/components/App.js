@@ -9,7 +9,7 @@ import StackDetail from '../containers/StackDetail';
 import style from '../style/App.module.css';
 
 const App = () => (
-  <Router>
+  /* <Router>
     <Switch>
       <>
         <div className={style.content}>
@@ -22,7 +22,22 @@ const App = () => (
         </div>
       </>
     </Switch>
-  </Router>
+  </Router> */
+  <NavBar>
+    <Router>
+      <Switch>
+        <>
+          <div className={style.content}>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/stacks" component={StacksList} />
+            <Route exact path="/profile" component={Profile} />
+            <Route exact path="/project/:name" component={ProjectDetail} />
+            <Route exact path="/stack/:name" component={StackDetail} />
+          </div>
+        </>
+      </Switch>
+    </Router>
+  </NavBar>
 );
 
 export default App;
