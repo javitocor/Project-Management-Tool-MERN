@@ -19,9 +19,10 @@ export const createProject = project => ({
   project
 });
 
-export const updateProject = project => ({
+export const updateProject = (project, id) => ({
   type: UPDATE_PROJECT,
-  project
+  project,
+  id,
 });
 
 export const deleteProject = id => ({

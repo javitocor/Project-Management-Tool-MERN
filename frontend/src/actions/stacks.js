@@ -19,9 +19,10 @@ export const createStack = stack => ({
   stack
 });
 
-export const updateStack = stack => ({
+export const updateStack = (stack, id) => ({
   type: UPDATE_STACK,
-  stack
+  stack,
+  id
 });
 
 export const deleteStack = id => ({
