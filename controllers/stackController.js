@@ -15,7 +15,7 @@ exports.stack_list = async (req, res, next) => {
 exports.stack_detail = async (req, res, next) => {
   try {
     const stack = await Stack.findById(req.params.id).select("-__v");
-    res.json({stack});
+    res.json(stack);
   } catch (error) {
     res.json(error)
     next();

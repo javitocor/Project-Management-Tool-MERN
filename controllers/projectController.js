@@ -17,7 +17,7 @@ exports.project_list = async (req, res, next) => {
 exports.project_detail = async (req, res, next) => {
   try {
     const project = await Project.findById(req.params.id).select("-__v").populate('stack', { name: 1 });
-    res.json({project});
+    res.json(project);
   } catch (error) {
     res.json(error)
     next();
