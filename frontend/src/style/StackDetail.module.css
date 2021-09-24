@@ -1,0 +1,56 @@
+:root {
+  --gradient: linear-gradient(to left top, #DD2476 10%, #FF512F 90%) !important;
+}
+body {
+  background-color:  black !important;
+}
+.title {
+  background: var(--gradient) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+.col-md-7 {  
+  background-color: black !important;
+}
+
+.col-md-5 {
+  padding: 0 !important;
+}
+.cardblock {
+    background: var(--gradient) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+    font-size: 1em;
+    position: relative;
+    margin: 0;
+    padding: 1em;
+    box-shadow: none;     
+}
+.card {
+    font-size: 1em;
+    border: 2px solid var(--gradient) !important;
+}
+.btn2 {
+  border: 5px solid !important;
+  border-image-slice: 1 !important;
+  background: var(--gradient) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  border-image-source:  var(--gradient) !important; 
+  text-decoration: none !important;
+  transition: all .4s ease !important;
+  padding: 6px;
+  color: #dd2476 !important;
+}
+
+.btn2:hover, .btn2:focus {
+  background: var(--gradient) !important;
+  -webkit-background-clip: none !important;
+  -webkit-text-fill-color: #fff !important;
+  border: 5px solid #fff !important; 
+  box-shadow: #222 1px 0 10px !important;
+  text-decoration: none !important;
+  color: #fff;
+}
