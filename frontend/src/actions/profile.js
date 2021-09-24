@@ -19,9 +19,10 @@ export const createProfile = profile => ({
   profile
 });
 
-export const updateProfile = profile => ({
+export const updateProfile = (id, profile) => ({
   type: UPDATE_PROFILE,
-  profile
+  profile,
+  id
 });
 
 export const deleteProfile = id => ({
