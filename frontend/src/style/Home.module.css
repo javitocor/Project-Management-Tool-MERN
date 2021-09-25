@@ -15,7 +15,7 @@ body{
   transition: all 0.3s ease-in-out;
 }
 
-.grey-bg {  
+.greybg {  
   background-color: #F5F7FA;
 }
 
@@ -39,7 +39,7 @@ a {
 text-decoration: none;
 }
 
-.movie-card {
+.moviecard {
 background-image: url(http://digitalspyuk.cdnds.net/15/47/1600x800/landscape-1447754794-harrison-ford-blade-runner.jpg);
 background-size: contain;
 background-position: -40% 80%;
@@ -54,17 +54,17 @@ border-radius: 8px;
         box-shadow: 0px 8px 12px 0px rgba(0, 0, 0, 0.25);
 }
 
-.movie-card:nth-child(2) {
+.moviecard:nth-child(2) {
 background-image: url("http://www.blastr.com/sites/blastr/files/back-to-the-future-part-ii-original.jpg");
 background-position: -20% 80%;
 }
 
-.movie-card:nth-child(3) {
+.moviecard:nth-child(3) {
 background-image: url("http://www.dvdactive.com/images/reviews/screenshot/2011/5/akirabdcap8_original.jpg");
 background-position: -20% 80%;
 }
 
-.color-overlay {
+.coloroverlay {
 width: 100%;
 height: 100%;
 border-radius: 8px;
@@ -81,19 +81,19 @@ line-height: 1;
 font-weight: 400;
 }
 
-.movie-content {
+.moviecontent {
 width: 40%;
 display: block;
 position: relative;
 float: right;
 padding-right: 1em;
 }
-.movie-content .movie-title {
+.moviecontent .movietitle {
 color: #ffffff;
 margin-bottom: .25em;
 opacity: .75;
 }
-.movie-content .movie-info {
+.moviecontent .movieinfo {
 text-transform: uppercase;
 letter-spacing: 2px;
 font-size: .8em;
@@ -103,10 +103,10 @@ margin: 0;
 font-weight: 700;
 opacity: .5;
 }
-.movie-content .movie-header {
+.moviecontent .movieheader {
 margin-bottom: 2em;
 }
-.movie-content .movie-desc {
+.moviecontent .moviedesc {
 font-weight: 300;
 opacity: .84;
 margin-bottom: 2em;
@@ -118,7 +118,7 @@ background-color: rgba(255, 255, 255, 0.2);
 color: white;
 }
 
-.btn-outline {
+.btnoutline {
 background-color: transparent;
 border: 3px solid #ffffff;
 }
@@ -131,20 +131,20 @@ font-size: 1.5em;
 padding-right: .5em;
 }
 
-.btn-outline:hover {
+.btnoutline:hover {
 border-color: #2a9fff;
 color: #2a9fff;
 -webkit-box-shadow: 0px 1px 8px 0px rgba(245, 199, 0, 0.2);
         box-shadow: 0px 1px 8px 0px rgba(245, 199, 0, 0.2);
 }
 
-.movie-share {
+.movieshare {
 padding: 1em;
 display: inline-block;
 width: 15%;
 }
 
-.movie-share__icon i {
+.movieshare__icon i {
 font-size: 1.2em;
 margin-left: .5em;
 color: #ffffff;
@@ -152,41 +152,41 @@ mix-blend-mode: lighten;
 opacity: .4;
 }
 
-.movie-share__icon i:hover {
+.movieshare__icon i:hover {
 opacity: 1;
 mix-blend-mode: lighten;
 }
 
 @media (max-width: 1000px) {
-.movie-content {
+.moviecontent {
   width: 50%;
   max-width: 95%;
 }
 }
 @media (max-width: 800px) {
-.movie-card {
+.moviecard {
   width: 95%;
   max-width: 95%;
 }
 }
 @media (max-width: 600px) {
-.movie-card, .movie-card:nth-child(2), .movie-card:nth-child(3) {
+.moviecard, .moviecard:nth-child(2), .moviecard:nth-child(3) {
   background-position: 50% 0%;
   background-size: cover;
   height: 400px;
 }
 
-.color-overlay {
+.coloroverlay {
   background: -webkit-gradient(linear, left top, left bottom, from(rgba(42, 159, 255, 0.2)), color-stop(60%, #212120), to(#212120));
   background: linear-gradient(to bottom, rgba(42, 159, 255, 0.2) 0%, #212120 60%, #212120 100%);
 }
 
-.movie-content {
+.moviecontent {
   margin-top: 4.2em;
   width: 90%;
 }
 
-.movie-share {
+.movieshare {
   display: block;
   width: 100%;
 }

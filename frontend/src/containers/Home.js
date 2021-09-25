@@ -1,3 +1,4 @@
+/* eslint-disable array-callback-return */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/control-has-associated-label */
@@ -17,7 +18,7 @@ import style from '../style/Home.module.css';
 
 function Home(props) {
   const {getAll, projectsList, stacksList} = props;
-
+  const featured = projectsList.sort(() => .5 - Math.random()).slice(0, 2);
   useEffect(() => {
     (async () => {
       try {  
@@ -30,7 +31,7 @@ function Home(props) {
   }, []);
 
   return projectsList.length === 0 || stacksList.length === 0 ? <div className="d-flex justify-content-center align-items-center w-100"><Spinner animation="grow" /></div> : (
-    <div className="grey-bg container-fluid">
+    <div className={`${style.greybg} container-fluid`}>
       <section id="minimal-statistics">
         <div className="row">
           <div className="col-12 mt-3 mb-1">
@@ -45,7 +46,7 @@ function Home(props) {
                 <div className="card-body">
                   <div className="media d-flex">
                     <div className="align-self-center">
-                      <i className="fab fa-github text-primary" />
+                      <i className="fas fa-project-diagram text-primary" />
                     </div>
                     <div className="media-body text-right">
                       <h3>{projectsList.length}</h3>
@@ -62,7 +63,7 @@ function Home(props) {
                 <div className="card-body">
                   <div className="media d-flex">
                     <div className="align-self-center">
-                      <i className="icon-speech warning font-large-2 float-left" />
+                      <i className="fas fa-laptop-code text-success" />
                     </div>
                     <div className="media-body text-right">
                       <h3>{stacksList.length}</h3>
@@ -79,7 +80,7 @@ function Home(props) {
                 <div className="card-body">
                   <div className="media d-flex">
                     <div className="align-self-center">
-                      <i className="icon-graph success font-large-2 float-left" />
+                      <i className="fas fa-user-tie text-info" />
                     </div>
                     <div className="media-body text-right">
                       <h3>2019</h3>
@@ -96,7 +97,7 @@ function Home(props) {
                 <div className="card-body">
                   <div className="media d-flex">
                     <div className="align-self-center">
-                      <i className="icon-pointer danger font-large-2 float-left" />
+                      <i className="fas fa-glasses text-secondary" />
                     </div>
                     <div className="media-body text-right">
                       <h3>423</h3>
@@ -116,11 +117,11 @@ function Home(props) {
                 <div className="card-body">
                   <div className="media d-flex">
                     <div className="media-body text-left">
-                      <h3 className="text-primary">{countProjectStatus(projectsList, 'Production')}</h3>
+                      <h3 className="text-success">{countProjectStatus(projectsList, 'Production')}</h3>
                       <span>In Production</span>
                     </div>
                     <div className="align-self-center">
-                      <i className="icon-book-open primary font-large-2 float-right" />
+                      <i className="fas fa-network-wired text-success" />
                     </div>
                   </div>
                   <div className="progress mt-1 mb-0" style={{height: "7px"}}>
@@ -136,11 +137,11 @@ function Home(props) {
                 <div className="card-body">
                   <div className="media d-flex">
                     <div className="media-body text-left">
-                      <h3 className="text-warning">{countProjectStatus(projectsList, 'Development')}</h3>
+                      <h3 className="text-primary">{countProjectStatus(projectsList, 'Development')}</h3>
                       <span>In Development</span>
                     </div>
                     <div className="align-self-center">
-                      <i className="icon-bubbles warning font-large-2 float-right" />
+                      <i className="fas fa-terminal text-primary" />
                     </div>
                   </div>
                   <div className="progress mt-1 mb-0" style={{height: "7px"}}>
@@ -157,11 +158,11 @@ function Home(props) {
                 <div className="card-body">
                   <div className="media d-flex">
                     <div className="media-body text-left">
-                      <h3 className="text-success">{countProjectStatus(projectsList, 'Standby')}</h3>
+                      <h3 className="text-warning">{countProjectStatus(projectsList, 'Standby')}</h3>
                       <span>In Standby</span>
                     </div>
                     <div className="align-self-center">
-                      <i className="icon-cup success font-large-2 float-right" />
+                      <i className="fas fa-pause text-warning" />
                     </div>
                   </div>
                   <div className="progress mt-1 mb-0" style={{height: "7px"}}>
@@ -191,32 +192,36 @@ function Home(props) {
         </div>
         <div className="row">
           <div className="col-12 mt-3 mb-2">
-            <div id="movie-card-list">
-                       
-              <div className="movie-card">
-                <div className="color-overlay">
-                  <div className="movie-share">
-                    <a className="movie-share__icon" href="#">
-                      <i className="material-icons">&#xe87d</i>
-                    </a>
-                    <a className="movie-share__icon" href="#">
-                      <i className="material-icons">&#xe253</i>
-                    </a>
-                    <a className="movie-share__icon" href="#">
-                      <i className="material-icons">&#xe80d</i>
-                    </a>
-                  </div>
-                  <div className="movie-content">
-                    <div className="movie-header">
-                      <h1 className="movie-title">Akira</h1>
-                      <h4 className="movie-info">(1988) Animation, Action, Drama </h4>
+            <div id="moviecardlist">
+              {featured.map(project => {        
+                <div className="moviecard">
+                  <div className="coloroverlay">
+                    <div className="movieshare">
+                      <a className="movieshare__icon" href="#">
+                        <i className="material-icons">&#xe87d</i>
+                      </a>
+                      <a className="movieshare__icon" href="#">
+                        <i className="material-icons">&#xe253</i>
+                      </a>
+                      <a className="movie-share__icon" href="#">
+                        <i className="material-icons">&#xe80d</i>
+                      </a>
                     </div>
-                    <p className="movie-desc">A secret military project endangers Neo-Tokyo when it turns a biker gang member into a rampaging psychic psychopath that only two teenagers and a group of psychics can stop. </p>
-                    <a className="btn btn-outline" href="#">Watch Trailer</a>
+                    <div className="moviecontent">
+                      <div className="movieheader">
+                        <h1 className="movietitle">{project.name}</h1>
+                        <h4 className="movieinfo">{project.stack.join(',')}</h4>
+                      </div>
+                      <p className="moviedesc">
+                        {project.description.substring(0, 38)}
+                        ...
+                      </p>
+                      <a className="btn btn-outline" href="#">Watch Trailer</a>
                         
+                    </div>
                   </div>
                 </div>
-              </div>
+               })}
             </div>
           </div>
         </div>
