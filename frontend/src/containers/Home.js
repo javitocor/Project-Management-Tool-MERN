@@ -179,7 +179,7 @@ function Home(props) {
             <HorizontalBarChart stacks={stacksList} projects={projectsList} />
           </div>
           <div className="col-4 mt-3 mb-1">
-            <DonutChart stacks={stacksList} projects={projectsList} />
+            <DonutChart projects={projectsList} />
           </div>
         </div>
       </section> 
