@@ -7,7 +7,7 @@ var ProfileSchema = new Schema({
     about: {type: String, minlength: 25, maxlength: 2500},
     dob: { type: Date, null: true, blank: true},
     avatar: {type: String},
-    /*skills, address, city, country, ocupation, profession, company */
+    /*skills, address, city, country, ocupation, profession, company, status */
     email: {
       type: String,
       lowercase: true,

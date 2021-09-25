@@ -1,8 +1,30 @@
+/* eslint-disable react/jsx-no-target-blank */
+/* eslint-disable react/forbid-prop-types */
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Link } from "react-router-dom";
+import { AllCall } from '../helpers/apiCalls';
 import style from '../style/Profile.module.css';
 
-const Profile = () => {
+const Profile = (props) => {
+  const {profilesList, getAllProfiles} = props;
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    (async () => {
+      try {  
+        const data = await getAllProfiles('profile');
+        setUser(data[0])
+      } catch (error) {
+        console.log(error)
+      }           
+    })();
+  }, []);
+
   return (
     <div className={`container-fluid ${style.bggrey}`}>
       <div className="row">
@@ -12,13 +34,13 @@ const Profile = () => {
               <a href="#">
                 <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" />
               </a>
-              <h1>Camila Smith</h1>
-              <p className="text-white">deydey@theEmail.com</p>
+              <h1>{user.name}</h1>
+              <p className="text-white">{user.email}</p>
             </div>
           
             <ul className="list-group">
               <li className="list-group-item">
-                <a href="#"> 
+                <a href={user.socialMedia.Github ? user.socialMedia.Github : '#'} target="_blank"> 
                   {' '}
                   <i className="fab fa-github" />
                   {' '}
@@ -27,7 +49,7 @@ const Profile = () => {
                 </a>
               </li>
               <li className="list-group-item">
-                <a href="#"> 
+                <a href={user.socialMedia.Angelist ? user.socialMedia.Angelist : '#'} target="_blank"> 
                   {' '}
                   <i className="fab fa-angellist" />
                   {' '}
@@ -36,7 +58,7 @@ const Profile = () => {
                 </a>
               </li>
               <li className="list-group-item">
-                <a href="#"> 
+                <a href={user.socialMedia.Linkedin ? user.socialMedia.Linkedin : '#'} target="_blank"> 
                   {' '}
                   <i className="fab fa-linkedin" />
                   {' '}
@@ -60,17 +82,7 @@ const Profile = () => {
                
           <div className={style.panel}>
             <div className={style.biographheading}>
-              Aliquam ac magna metus. Nam sed arcu non tellus fringilla fringilla ut vel ispum. Aliquam ac magna metus.
-              Aliquam ac magna metus. Nam sed arcu non tellus fringilla fringilla ut vel ispum. Aliquam ac magna metus.
-              Aliquam ac magna metus. Nam sed arcu non tellus fringilla fringilla ut vel ispum. Aliquam ac magna metus.
-              Aliquam ac magna metus. Nam sed arcu non tellus fringilla fringilla ut vel ispum. Aliquam ac magna metus.
-              Aliquam ac magna metus. Nam sed arcu non tellus fringilla fringilla ut vel ispum. Aliquam ac magna metus.
-              Aliquam ac magna metus. Nam sed arcu non tellus fringilla fringilla ut vel ispum. Aliquam ac magna metus.
-              Aliquam ac magna metus. Nam sed arcu non tellus fringilla fringilla ut vel ispum. Aliquam ac magna metus.
-              Aliquam ac magna metus. Nam sed arcu non tellus fringilla fringilla ut vel ispum. Aliquam ac magna metus.
-              Aliquam ac magna metus. Nam sed arcu non tellus fringilla fringilla ut vel ispum. Aliquam ac magna metus.
-              Aliquam ac magna metus. Nam sed arcu non tellus fringilla fringilla ut vel ispum. Aliquam ac magna metus.
-                        
+              {user.about}                        
             </div>
             <div className={style.biographinfo}>
               <h1>Bio Graph</h1>
@@ -78,49 +90,67 @@ const Profile = () => {
                 <div className={style.biorow}>
                   <p>
                     <span>Name </span>
-                    : Camila
+                    : 
+                    {' '}
+                    {user.firstname} 
+                    {' '}
+                    {user.lastname}
                   </p>
                 </div>
                 <div className={style.biorow}>
                   <p>
                     <span>Birthday </span>
-                    : Smith
+                    : 
+                    {' '}
+                    {user.dob}
                   </p>
                 </div>
                 <div className={style.biorow}>
                   <p>
                     <span>Country </span>
-                    : Australia
+                    : 
+                    {' '}
+                    {user.country}
                   </p>
                 </div>
                 <div className={style.biorow}>
                   <p>
                     <span>City</span>
-                    : 13 July 1983
+                    : 
+                    {' '}
+                    {user.city}
                   </p>
                 </div>
                 <div className={style.biorow}>
                   <p>
                     <span>Email </span>
-                    : UI Designer
+                    : 
+                    {' '}
+                    {user.email}
                   </p>
                 </div>
                 <div className={style.biorow}>
                   <p>
                     <span>Gender </span>
-                    : jsmith@flatlab.com
+                    : 
+                    {' '}
+                    {user.gender}
                   </p>
                 </div>
                 <div className={style.biorow}>
                   <p>
                     <span>Work Status </span>
-                    : (12) 03 4567890
+                    : 
+                    {' '}
+                    {user.status}
                   </p>
                 </div>
                 <div className={style.biorow}>
                   <p>
                     <span>Phone </span>
-                    : 88 (02) 123456
+                    : 
+                    {' '}
+                    {user.phone}
                   </p>
                 </div>
               </div>
@@ -207,4 +237,25 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+Profile.propTypes = {
+  profiles: PropTypes.shape({
+    error: PropTypes.object,
+    pending: PropTypes.bool,
+    profilesList: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
+  getAllProfiles: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  profiles: {
+    error: state.items.error,
+    profilesList: state.items.itemsList,
+    pending: state.items.pending,
+  },
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  getAllProfiles: AllCall,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);
