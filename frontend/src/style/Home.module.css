@@ -1,11 +1,5 @@
 
-body{
-  margin-top:20px;
-  background:#FAFAFA;
-}
-
-
-.card {
+.card2 {
   border-radius: 5px;
   -webkit-box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
   box-shadow: 0 1px 2.94px 0.06px rgba(4,26,55,0.16);
@@ -25,7 +19,6 @@ font-family: "Montserrat", helvetica, arial, sans-serif;
 font-size: 14px;
 color: #cfd6e1;
 line-height: 1.5;
-font-weight: 400;
 max-width: 100%;
 overflow-x: hidden;
 }
@@ -112,7 +105,7 @@ opacity: .84;
 margin-bottom: 2em;
 }
 
-.btn {
+.btn2 {
 padding: .8em 2em;
 background-color: rgba(255, 255, 255, 0.2);
 color: white;
@@ -123,7 +116,7 @@ background-color: transparent;
 border: 3px solid #ffffff;
 }
 
-.btn::before {
+.btn2::before {
 font-family: 'Material Icons';
 content: '\e037';
 vertical-align: middle;
@@ -144,7 +137,7 @@ display: inline-block;
 width: 15%;
 }
 
-.movieshare__icon i {
+.movieshareicon i {
 font-size: 1.2em;
 margin-left: .5em;
 color: #ffffff;
@@ -152,7 +145,7 @@ mix-blend-mode: lighten;
 opacity: .4;
 }
 
-.movieshare__icon i:hover {
+.movieshareicon i:hover {
 opacity: 1;
 mix-blend-mode: lighten;
 }

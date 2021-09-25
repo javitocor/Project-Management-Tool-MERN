@@ -19,6 +19,7 @@ import style from '../style/Home.module.css';
 function Home(props) {
   const {getAll, projectsList, stacksList} = props;
   const featured = projectsList.sort(() => .5 - Math.random()).slice(0, 2);
+
   useEffect(() => {
     (async () => {
       try {  
@@ -41,7 +42,7 @@ function Home(props) {
         </div>
         <div className="row">
           <div className="col-xl-3 col-sm-6 col-12"> 
-            <div className="card">
+            <div className={`${style.card2} card`}>
               <div className="card-content">
                 <div className="card-body">
                   <div className="media d-flex">
@@ -58,7 +59,7 @@ function Home(props) {
             </div>
           </div>
           <div className="col-xl-3 col-sm-6 col-12">
-            <div className="card">
+            <div className={`${style.card2} card`}>
               <div className="card-content">
                 <div className="card-body">
                   <div className="media d-flex">
@@ -75,7 +76,7 @@ function Home(props) {
             </div>
           </div>
           <div className="col-xl-3 col-sm-6 col-12">
-            <div className="card">
+            <div className={`${style.card2} card`}>
               <div className="card-content">
                 <div className="card-body">
                   <div className="media d-flex">
@@ -92,7 +93,7 @@ function Home(props) {
             </div>
           </div>
           <div className="col-xl-3 col-sm-6 col-12">
-            <div className="card">
+            <div className={`${style.card2} card`}>
               <div className="card-content">
                 <div className="card-body">
                   <div className="media d-flex">
@@ -112,7 +113,7 @@ function Home(props) {
                                      
         <div className="row">
           <div className="col-xl-4 col-sm-6 col-12">
-            <div className="card">
+            <div className={`${style.card2} card`}>
               <div className="card-content">
                 <div className="card-body">
                   <div className="media d-flex">
@@ -132,7 +133,7 @@ function Home(props) {
             </div>
           </div>
           <div className="col-xl-4 col-sm-6 col-12">
-            <div className="card">
+            <div className={`${style.card2} card`}>
               <div className="card-content">
                 <div className="card-body">
                   <div className="media d-flex">
@@ -153,7 +154,7 @@ function Home(props) {
           </div>
             
           <div className="col-xl-4 col-sm-6 col-12">
-            <div className="card">
+            <div className={`${style.card2} card`}>
               <div className="card-content">
                 <div className="card-body">
                   <div className="media d-flex">
@@ -192,31 +193,31 @@ function Home(props) {
         </div>
         <div className="row">
           <div className="col-12 mt-3 mb-2">
-            <div id="moviecardlist">
+            <div id={style.moviecardlist}>
               {featured.map(project => {        
-                <div className="moviecard">
-                  <div className="coloroverlay">
-                    <div className="movieshare">
-                      <a className="movieshare__icon" href="#">
-                        <i className="material-icons">&#xe87d</i>
+                <div className={style.moviecard}>
+                  <div className={style.coloroverlay}>
+                    <div className={style.movieshare}>
+                      <a className={style.movieshareicon} href="#">
+                        <i className="fas fa-code-branch" />
                       </a>
-                      <a className="movieshare__icon" href="#">
-                        <i className="material-icons">&#xe253</i>
+                      <a className={style.movieshareicon} href="#">
+                        <i className="fas fa-server" />
                       </a>
-                      <a className="movie-share__icon" href="#">
-                        <i className="material-icons">&#xe80d</i>
+                      <a className={style.movieshareicon} href="#">
+                        <i className="fas fa-download" />
                       </a>
                     </div>
-                    <div className="moviecontent">
-                      <div className="movieheader">
-                        <h1 className="movietitle">{project.name}</h1>
-                        <h4 className="movieinfo">{project.stack.join(',')}</h4>
+                    <div className={style.moviecontent}>
+                      <div className={style.movieheader}>
+                        <h1 className={style.movietitle}>{project.name}</h1>
+                        <h4 className={style.movieinfo}>{project.stack.join(',')}</h4>
                       </div>
-                      <p className="moviedesc">
+                      <p className={style.moviedesc}>
                         {project.description.substring(0, 38)}
                         ...
                       </p>
-                      <a className="btn btn-outline" href="#">Watch Trailer</a>
+                      <a className={`${style.btn2} ${style.btnoutline} btn-outline`} href="#">Check it out</a>
                         
                     </div>
                   </div>
