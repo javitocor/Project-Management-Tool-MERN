@@ -90,6 +90,9 @@ const ProjectDetail = (props) => {
 };
 
 ProjectDetail.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.shape({ id: PropTypes.string.isRequired }),
+  }).isRequired,
   projects: PropTypes.shape({
     error: PropTypes.object,
     pending: PropTypes.bool,

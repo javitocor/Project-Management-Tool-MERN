@@ -51,6 +51,9 @@ const StackDetail = (props) => {
 };
 
 StackDetail.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.shape({ id: PropTypes.string.isRequired }),
+  }).isRequired,
   stacks: PropTypes.shape({
     error: PropTypes.object,
     pending: PropTypes.bool,
