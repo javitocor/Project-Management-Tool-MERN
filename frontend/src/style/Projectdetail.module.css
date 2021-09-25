@@ -1,0 +1,34 @@
+body{
+  margin-top:20px;
+  background:#eee;
+}
+.decordefault {
+  background-color: #ffffff;
+}
+.contact .controls {
+  position: relative;
+}
+
+.contact .controls .cover {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  min-height: 150px;
+}
+.cover {
+  position: relative;
+  overflow: hidden;
+  height: 500px;
+}
+
+.containercontact div[class^="col-"] {
+  position: relative;
+  min-height: 1px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+}
+.contactdescription {
+  font-size: 16px;
+  line-height: 36px;
+}
