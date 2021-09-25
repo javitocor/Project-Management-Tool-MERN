@@ -51,7 +51,7 @@ const StacksList = (props) => {
                       id: stack._id,
                     },
                   }}
-                  className="btn2 mr-2"
+                  className={`${style.btn2} mr-2`}
                   id="list-home-list"
                   data-toggle="list"
                   role="tab"
@@ -80,9 +80,9 @@ StacksList.propTypes = {
 
 const mapStateToProps = state => ({
   stacks: {
-    error: state.items.error,
-    stacksList: state.items.itemsList,
-    pending: state.items.pending,
+    error: state.stacks.error,
+    stacksList: state.stacks.stacksList,
+    pending: state.stacks.pending,
   },
 });
 

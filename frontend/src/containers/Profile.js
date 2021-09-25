@@ -249,9 +249,9 @@ Profile.propTypes = {
 
 const mapStateToProps = state => ({
   profiles: {
-    error: state.items.error,
-    profilesList: state.items.itemsList,
-    pending: state.items.pending,
+    error: state.profiles.error,
+    profilesList: state.profiles.profilesList,
+    pending: state.profiles.pending,
   },
 });
 

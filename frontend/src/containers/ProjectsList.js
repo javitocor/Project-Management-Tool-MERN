@@ -93,9 +93,9 @@ ProjectsList.propTypes = {
 
 const mapStateToProps = state => ({
   projects: {
-    error: state.items.error,
-    projectsList: state.items.itemsList,
-    pending: state.items.pending,
+    error: state.projects.error,
+    projectsList: state.projects.projectsList,
+    pending: state.projects.pending,
   },
 });
 
