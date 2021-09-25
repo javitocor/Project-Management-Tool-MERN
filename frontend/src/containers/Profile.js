@@ -11,7 +11,7 @@ import { AllCall } from '../helpers/apiCalls';
 import style from '../style/Profile.module.css';
 
 const Profile = (props) => {
-  const {profilesList, getAllProfiles} = props;
+  const {getAllProfiles} = props;
   const [user, setUser] = useState({});
 
   useEffect(() => {
