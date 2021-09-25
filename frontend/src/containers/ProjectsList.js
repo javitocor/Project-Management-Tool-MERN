@@ -2,7 +2,7 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,7 +17,7 @@ const ProjectsList = (props) => {
   useEffect(() => {
     (async () => {
       try {  
-        const data = await getAllProjects('projects');
+        await getAllProjects('projects');
       } catch (error) {
         console.log(error)
       }           
