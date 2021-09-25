@@ -1,9 +1,31 @@
-import React from 'react';
+/* eslint-disable array-callback-return */
+/* eslint-disable no-unused-vars */
+/* eslint-disable react/forbid-prop-types */
+import React, {useEffect} from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Link } from "react-router-dom";
+import Spinner from 'react-bootstrap/Spinner';
+import { SingleCall } from '../helpers/apiCalls';
 import style from '../style/Projectdetail.module.css';
 
 
-const ProjectDetail = () => {
-  return (
+const ProjectDetail = (props) => {
+  const {project, getProject, location } = props;
+  const { id } = location.state;
+
+  useEffect(() => {
+    (async () => {
+      try {  
+        await getProject('projects', id);
+      } catch (error) {
+        console.log(error)
+      }           
+    })();
+  }, []);
+
+  return project.length === 0 ? <div className="d-flex justify-content-center align-items-center w-100"><Spinner animation="grow" /></div> : (
     <div className={`container ${style.containercontact}`}>
       <div className={`row ${style.decordefault}`}>
         <div className="col-md-12">
@@ -20,36 +42,44 @@ const ProjectDetail = () => {
                     Name of the project:
                   </div>
                   <div className="col-9">
-                    example@yourdomain.com
+                    {project.name}
                   </div>
                   <div className="col-3">
                     Year:
                   </div>
                   <div className="col-9">
-                    +1-800-600-9898
+                    {project.year}
                   </div>
                   <div className="col-3">
                     Status:
                   </div>
                   <div className="col-9">
-                    Sacramento, CA
-                  </div>
-                  <div className="col-3">
-                    Links:
-                  </div>
-                  <div className="col-9">
-                    1975/8/17
-                  </div>
+                    {project.status}
+                  </div>                
+                  {project.links.map(link=>{   
+                    <>                 
+                      <div className="col-3">
+                        Github:
+                      </div>  
+                      <div className="col-9">
+                        {link}
+                      </div>
+                    </>
+                  })}                  
                   <div className="col-3">
                     Stack:
                   </div>
                   <div className="col-9">
-                    http://yourdomain.com
+                    <ul>
+                      {project.stack.map(stack=>{
+                        <li>{stack.name}</li>
+                      })}
+                    </ul>
                   </div>
                 </div>
               </div>
               <div className="col-lg-8 col-md-7 col-xs-12">
-                <p className={style.contactdescription}>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+                <p className={style.contactdescription}>{project.description}</p>
               </div>
             </div>
           </div>
@@ -59,4 +89,25 @@ const ProjectDetail = () => {
   );
 };
 
-export default ProjectDetail;
+ProjectDetail.propTypes = {
+  projects: PropTypes.shape({
+    error: PropTypes.object,
+    pending: PropTypes.bool,
+    project: PropTypes.object,
+  }).isRequired,
+  getProject: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+  projects: {
+    error: state.projects.error,
+    project: state.projects.project,
+    pending: state.projects.pending,
+  },
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  getProject: SingleCall,
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetail);
