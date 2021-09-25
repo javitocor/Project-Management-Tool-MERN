@@ -7,11 +7,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from "react-router-dom";
+import Spinner from 'react-bootstrap/Spinner';
 import { AllCall } from '../helpers/apiCalls';
 import style from '../style/Profile.module.css';
 
 const Profile = (props) => {
-  const {getAllProfiles} = props;
+  const {profilesList, getAllProfiles} = props;
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -25,7 +26,7 @@ const Profile = (props) => {
     })();
   }, []);
 
-  return (
+  return profilesList.length === 0 ? <div className="d-flex justify-content-center align-items-center w-100"><Spinner animation="grow" /></div> : (
     <div className={`container-fluid ${style.bggrey}`}>
       <div className="row">
         <div className={`${style.profilenav} col-md-3`}>
