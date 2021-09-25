@@ -3,10 +3,16 @@
 /* eslint-disable react/style-prop-object */
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
+import React, {useEffect} from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { Link } from "react-router-dom";
+import Spinner from 'react-bootstrap/Spinner';
+import { AllCall } from '../helpers/apiCalls';
 import style from '../style/Home.module.css';
 
-function Home() {
+function Home(props) {
   return (
     <div className="grey-bg container-fluid">
       <section id="minimal-statistics">
