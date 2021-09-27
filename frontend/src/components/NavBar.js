@@ -101,6 +101,21 @@ class NavBar extends Component {
                   <li>
                     <a href="#">Standby</a>
                   </li>
+                  <li>
+                    <Link
+                      to={{
+                        pathname: `/project/create`,
+                        state: { project: null, type:'create' }
+                      }}
+                      className=''
+                      id="list-home-list"
+                      data-toggle="list"
+                      role="tab"
+                      aria-controls="home"
+                    >
+                      Create Project
+                    </Link>
+                  </li>
                 </ul>
               </li>
               <li>
@@ -117,6 +132,21 @@ class NavBar extends Component {
                   </li>
                   <li>
                     <a href="#">Python</a>
+                  </li>
+                  <li>
+                    <Link
+                      to={{
+                        pathname: `/stack/create`,
+                        state: { stack: null, type:'create' }
+                      }}
+                      className=''
+                      id="list-home-list"
+                      data-toggle="list"
+                      role="tab"
+                      aria-controls="home"
+                    >
+                      Create Stack
+                    </Link>
                   </li>
                 </ul>
               </li>

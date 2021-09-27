@@ -55,7 +55,7 @@ const ProjectsList = (props) => {
                   <div className="card-footer">
                     {project.stack.map(stack=>{
                       <Link
-                        key={project}
+                        key={stack.description}
                         to={{
                         pathname: `/stack/${stack.name}`,
                         state: {

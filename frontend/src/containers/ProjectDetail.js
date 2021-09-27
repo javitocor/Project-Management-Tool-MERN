@@ -76,6 +76,21 @@ const ProjectDetail = (props) => {
                       })}
                     </ul>
                   </div>
+                  <div className="col-12">
+                    <Link
+                      to={{
+                        pathname: `/project/${project.name}/update`,
+                        state: { project, type:'update' }
+                      }}
+                      className='btn btn-outline-secondary'
+                      id="list-home-list"
+                      data-toggle="list"
+                      role="tab"
+                      aria-controls="home"
+                    >
+                      Edit Project
+                    </Link>
+                  </div>
                 </div>
               </div>
               <div className="col-lg-8 col-md-7 col-xs-12">

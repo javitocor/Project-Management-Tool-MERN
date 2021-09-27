@@ -37,6 +37,19 @@ const StackDetail = (props) => {
                 {stack.description}
               </p>
               <a href={stack.link ? stack.link : "#"} className={`mt-4 ${style.btn2}`}>Read More</a>
+              <Link
+                to={{
+                        pathname: `/stack/${stack.name}/update`,
+                        state: { stack, type:'update' }
+                      }}
+                className={`mt-4 ${style.btn2}`}
+                id="list-home-list"
+                data-toggle="list"
+                role="tab"
+                aria-controls="home"
+              >
+                Edit Project
+              </Link>
             </div>
           </div>
           <div className="col-md-5">

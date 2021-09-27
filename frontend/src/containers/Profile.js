@@ -67,14 +67,21 @@ const Profile = (props) => {
                   {' '}
                 </a>
               </li>
-              <li className="list-group-item">
-                <a href="#"> 
-                  {' '}
+              <li className="list-group-item"> 
+                <Link
+                  to={{
+                        pathname: `/profile/create`,
+                        state: { user }
+                      }}
+                  className=''
+                  id="list-home-list"
+                  data-toggle="list"
+                  role="tab"
+                  aria-controls="home"
+                >
                   <i className="fas fa-user-edit" />
-                  {' '}
                   Edit Profile
-                  {' '}
-                </a>
+                </Link> 
               </li>
             </ul>
           </div>
