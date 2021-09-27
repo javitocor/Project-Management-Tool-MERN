@@ -93,7 +93,7 @@ class StackForm extends React.Component{
           {' '}
           Stack
         </h1>
-        <Form>
+        <Form onSubmit={this.handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Stack Name</Form.Label>
             <Form.Control 
