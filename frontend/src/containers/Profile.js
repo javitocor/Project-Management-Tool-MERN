@@ -25,7 +25,7 @@ const Profile = (props) => {
       }           
     })();
   }, [getAllProfiles]);
-  console.log(user)
+  
   return user === {} ? <div className="d-flex justify-content-center align-items-center w-100"><Spinner animation="grow" /></div> : (
     <div className={`container-fluid ${style.bggrey}`}>
       <div className="row">
@@ -35,13 +35,17 @@ const Profile = (props) => {
               <a href="#">
                 <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" />
               </a>
-              <h1>{user.name}</h1>
+              <h1 className="mt-2">
+                {user.firstname} 
+                {' '}
+                {user.lastname}
+              </h1>
               <p className="text-white">{user.email}</p>
             </div>
           
             <ul className="list-group">
               <li className="list-group-item">
-                <a href={user.socialMedia.Github ? user.socialMedia.Github : '#'} target="_blank"> 
+                <a href={user.socialMedia ? user.socialMedia.Github : '#'} target="_blank"> 
                   {' '}
                   <i className="fab fa-github" />
                   {' '}
@@ -50,7 +54,7 @@ const Profile = (props) => {
                 </a>
               </li>
               <li className="list-group-item">
-                <a href={user.socialMedia.Angelist ? user.socialMedia.Angelist : '#'} target="_blank"> 
+                <a href={user.socialMedia ? user.socialMedia.Angelist : '#'} target="_blank"> 
                   {' '}
                   <i className="fab fa-angellist" />
                   {' '}
@@ -59,7 +63,7 @@ const Profile = (props) => {
                 </a>
               </li>
               <li className="list-group-item">
-                <a href={user.socialMedia.Linkedin ? user.socialMedia.Linkedin : '#'} target="_blank"> 
+                <a href={user.socialMedia ? user.socialMedia.Linkedin : '#'} target="_blank"> 
                   {' '}
                   <i className="fab fa-linkedin" />
                   {' '}
@@ -70,7 +74,7 @@ const Profile = (props) => {
               <li className="list-group-item"> 
                 <Link
                   to={{
-                        pathname: `/profile/create`,
+                        pathname: `/profile/update`,
                         state: { user }
                       }}
                   className=''
@@ -93,13 +97,11 @@ const Profile = (props) => {
               {user.about}                        
             </div>
             <div className={style.biographinfo}>
-              <h1>Bio Graph</h1>
+              <h1>BioGraph</h1>
               <div className="row">
                 <div className={style.biorow}>
                   <p>
                     <span>Name </span>
-                    : 
-                    {' '}
                     {user.firstname} 
                     {' '}
                     {user.lastname}
@@ -108,56 +110,42 @@ const Profile = (props) => {
                 <div className={style.biorow}>
                   <p>
                     <span>Birthday </span>
-                    : 
-                    {' '}
                     {user.dob}
                   </p>
                 </div>
                 <div className={style.biorow}>
                   <p>
                     <span>Country </span>
-                    : 
-                    {' '}
                     {user.country}
                   </p>
                 </div>
                 <div className={style.biorow}>
                   <p>
                     <span>City</span>
-                    : 
-                    {' '}
                     {user.city}
                   </p>
                 </div>
                 <div className={style.biorow}>
                   <p>
                     <span>Email </span>
-                    : 
-                    {' '}
                     {user.email}
                   </p>
                 </div>
                 <div className={style.biorow}>
                   <p>
                     <span>Gender </span>
-                    : 
-                    {' '}
                     {user.gender}
                   </p>
                 </div>
                 <div className={style.biorow}>
                   <p>
                     <span>Work Status </span>
-                    : 
-                    {' '}
-                    {user.status}
+                    {user.work_status}
                   </p>
                 </div>
                 <div className={style.biorow}>
                   <p>
                     <span>Phone </span>
-                    : 
-                    {' '}
                     {user.phone}
                   </p>
                 </div>

@@ -30,7 +30,7 @@ exports.profile_create = async (req, res, next) => {
       });
     };
     try {
-      const {firstname, lastname, about, dob, email, gender, phone, github, linkedin, angelist} = req.body;
+      const {firstname, lastname, about, dob, email, gender, phone, github, linkedin, angelist, city, country, work_status} = req.body;
       const profile = new Profile({
         firstname,
         lastname,
@@ -39,7 +39,9 @@ exports.profile_create = async (req, res, next) => {
         email,
         gender,
         phone,
-        socialMedia: {}
+        city,
+        country,
+        work_status,
         /*avatar: req.file.filename,*/
       });
       if (github) {
@@ -60,13 +62,13 @@ exports.profile_create = async (req, res, next) => {
     }
 };
 
-exports.profile_update = async (req, res, next) => {  
-  const errors = validationResult(req);
+exports.profile_update = async (req, res, next) => {
+  /*const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({
         errors: errors.array()
       });
-    };
+    };*/
     try {
       const {github, linkedin, angelist} = req.body;
       const profile = await Profile.findByIdAndUpdate(req.params.id, { $set: req.body, updated_at: Date.now() }, {new: true});

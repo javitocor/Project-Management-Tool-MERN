@@ -142,6 +142,7 @@ export const UpdateCall = (route, token, data, id) => async dispatch => {
     }    
     return newData;
   } catch (error) {
+    console.log(error)
     if(route==='stacks'){
       dispatch(stacks.stacksError(error));
     } else if (route==='projects') {
