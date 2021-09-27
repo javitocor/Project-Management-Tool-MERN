@@ -43,7 +43,6 @@ class StackForm extends React.Component{
     try {
       if(type === 'create') {
         const data = await createStack('stacks', token, this.state);
-        console.log(data)
         this.props.history.push({
           pathname:`/stack/${data.stack.name}`,
           state: {
@@ -98,13 +97,13 @@ class StackForm extends React.Component{
     const { location} = this.props;
     const { type } = location.state;
     return (
-      <Container>
-        <h1>
+      <Container className={style.container2}>
+        <h1 className={style.title}>
           {type === 'create' ? 'Create' : 'Update'}
           {' '}
           Stack
         </h1>
-        <Form onSubmit={this.handleSubmit}>
+        <Form onSubmit={this.handleSubmit} className={style.formal}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Stack Name</Form.Label>
             <Form.Control 
@@ -146,14 +145,14 @@ class StackForm extends React.Component{
               onChange={this.handleChange}             
             />
           </Form.Group>
-          <Button variant="primary" type="submit" className='mr-3'>
+          <Button variant="primary" type="submit" className={`${style.btn2} mr-3`}>
             {type === 'create' ? 'Create' : 'Update'}
           </Button>
           {type === 'update' ? (
             <Button
               variant="primary"
               type="submit"
-              className='mr-3'
+              className={`${style.btn2} mr-3`}
               onClick={e =>
                 window.confirm("Are you sure you want to delete this stack?") &&
                 this.handleDelete()
