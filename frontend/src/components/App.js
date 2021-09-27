@@ -11,6 +11,7 @@ import ProjectsList from '../containers/ProjectsList';
 import StackForm from '../containers/StackForm';
 import ProjectForm from '../containers/ProjectForm';
 import ProfileForm from '../containers/ProfileForm';
+import NoPageMatch from './NoPageMatch';
 import style from '../style/App.module.css';
 
 const App = () => (
@@ -43,6 +44,7 @@ const App = () => (
           <Route exact path="/stack/:name" component={StackDetail} />
           <Route exact path="/stack/create" component={StackForm} />
           <Route exact path="/stack/:name/update" component={StackForm} />
+          <Route path="*" component={NoPageMatch} /> 
         </>
       </Switch>
     </Router>
