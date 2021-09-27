@@ -40,9 +40,9 @@ const App = () => (
           <Route exact path="/profile/update" component={ProfileForm} />
           <Route exact path="/project/:name" component={ProjectDetail} />
           <Route exact path="/project/:name/update" component={ProjectForm} />
-          <Route exact path="/project/create" component={ProjectForm} />
+          <Route exact path="/projects/create" component={ProjectForm} />
+          <Route exact path="/stacks/create" component={StackForm} />
           <Route exact path="/stack/:name" component={StackDetail} />
-          <Route exact path="/stack/create" component={StackForm} />
           <Route exact path="/stack/:name/update" component={StackForm} />
           <Route path="*" component={NoPageMatch} /> 
         </>

@@ -1,8 +1,9 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable array-callback-return */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -13,24 +14,26 @@ import style from '../style/StacksList.module.css';
 
 const StacksList = (props) => {
   const {stacksList, getAllStacks} = props;
+  const [stacks, setStacks] = useState([]);
 
   useEffect(() => {
     (async () => {
       try {  
-        await getAllStacks('stacks');
+        const data = await getAllStacks('stacks');
+        setStacks(data)
       } catch (error) {
         console.log(error)
       }           
     })();
-  }, [getAllStacks]);
-
-  return stacksList.length === 0 ? <div className="d-flex justify-content-center align-items-center w-100"><Spinner animation="grow" /></div> : (
-    <div className={`container mx-auto mt-4 ${style.container2}`}>
+  }, []);
+  
+  return stacks.length === 0 ? <div className="d-flex justify-content-center align-items-center w-100"><Spinner animation="grow" /></div> : (
+    <div className={`mx-auto ${style.container2}`}>
       <h1 className={style.title}>Stacks</h1>
       <div className="row">
-        {stacksList.map(stack => {
-          <div className="col-md-4">
-            <div className="card" style={{width: "18rem"}}>
+        {stacks.map(stack => (
+          <div className="col-md-4 mb-3 d-flex justify-content-center align-items-center">
+            <div className={`card ${style.card2}`} style={{width: "18rem"}}>
               <img src="https://i.imgur.com/ZTkt4I5.jpg" className="card-img-top" alt="..." />
               <div className="card-body">
                 <h5 className="card-title">{stack.name}</h5>
@@ -63,7 +66,7 @@ const StacksList = (props) => {
               </div>
             </div>
           </div> 
-        })}
+        ))}
       </div> 
     </div>  
   );

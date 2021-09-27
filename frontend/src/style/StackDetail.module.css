@@ -3,19 +3,23 @@
 }
 .container2 {
   background-color:  black !important;
+  padding-bottom: 0 !important;
+  width: 100%;
+  height: 100%;
 }
 .title {
+  font-size: 4em;
   background: var(--gradient) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
     margin-bottom: 50px;
     text-transform: uppercase;
 }
-.col-md-7 {  
+.colbg {  
   background-color: black !important;
 }
 
-.col-md-5 {
+.colpad {
   padding: 0 !important;
 }
 .cardblock {
@@ -28,9 +32,11 @@
     padding: 1em;
     box-shadow: none;     
 }
-.card {
+.card2 {
     font-size: 1em;
     border: 2px solid var(--gradient) !important;
+    width: 80%;
+    margin: 0 auto;
 }
 .btn2 {
   border: 5px solid !important;

@@ -23,19 +23,20 @@ exports.stack_detail = async (req, res, next) => {
 };
 
 exports.stack_create = async (req, res, next) => { 
-    const errors = validationResult(req);
+    /*const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({
         errors: errors.array()
       });
-    };
+    };*/
 
     try {
-      const {name, description, released_year} = req.body;
+      const {name, description, released_year, link} = req.body;
       const stack = new Stack({
         name,
         description,
         released_year,
+        link
       });
       await stack.save();
       res.status(201);

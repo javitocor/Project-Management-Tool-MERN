@@ -5,28 +5,28 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Redirect } from 'react-router-dom';
-import { Button, Container, Form } from 'react-bootstrap';
-import { UpdateCall, CreateCall } from '../helpers/apiCalls';
+import { Button, Container, Form, Alert } from 'react-bootstrap';
+import { UpdateCall, CreateCall, DeleteCall } from '../helpers/apiCalls';
+import style from '../style/StackForm.module.css';
 
 class StackForm extends React.Component{
   constructor(props) {
     super(props);
-    this.state= {};
+    this.state= {
+      name: '',
+      description: '',
+      link: '',
+      released_year: 1950,
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
     const { location} = this.props;
-    const { type, stack  } = location.state;
-    if (type === 'create') {
-      this.setState({ 
-        name: '',
-        description: '',
-        link: '',
-        released_year: 1950,
-      })
-    } else if (type === 'update') {
+    const { type } = location.state;
+    if (type === 'update') {
+      const { stack } = location.state;
       this.setState(stack)
     }
   }
@@ -38,34 +38,45 @@ class StackForm extends React.Component{
   async handleSubmit (event) {
     event.preventDefault();
     const { location, createStack, updateStack } = this.props;
-    const { type, stack  } = location.state;
+    const { type } = location.state;
     const token = this.getCookie('csrftoken');
     try {
       if(type === 'create') {
         const data = await createStack('stacks', token, this.state);
-          <Redirect 
-            to={{
-            pathname: `/stack/${data.name}`,
-            state: {
-              id: data._id,
-            },
-          }}
-          />
+        console.log(data)
+        this.props.history.push({
+          pathname:`/stack/${data.stack.name}`,
+          state: {
+            id: data.stack._id,
+          },
+        });
       } else if (type === 'update') {
+        const { stack } = location.state;
         const data = await updateStack('stacks', token, this.state, stack._id);
-          <Redirect 
-            to={{
-            pathname: `/stack/${data.name}`,
-            state: {
-              id: data._id,
-            },
-          }}
-          />
+        this.setState({})
+        this.props.history.push({
+          pathname:`/stack/${data.stack.name}`,
+          state: {
+            id: data.stack._id,
+          },
+        });
       }
     } catch (error) {
       console.log(error)
     }
   }  
+
+  async handleDelete (e) {
+    const { location, deleteStack } = this.props;
+    const { stack } = location.state;
+    const token = this.getCookie('csrftoken');
+    try {
+      await deleteStack('stacks', token, stack._id)
+      this.props.history.push('/stacks');
+    } catch(error) {
+      console.log(error)
+    }
+  }
 
   getCookie = (name) => {
     let cookieValue = null;
@@ -85,7 +96,7 @@ class StackForm extends React.Component{
 
   render() {
     const { location} = this.props;
-    const { type, stack  } = location.state;
+    const { type } = location.state;
     return (
       <Container>
         <h1>
@@ -99,7 +110,7 @@ class StackForm extends React.Component{
             <Form.Control 
               type="text" 
               placeholder="Enter stack name" 
-              value={this.state.name ? this.state.name : ''}
+              value={this.state.name}
               name="name"
               onChange={this.handleChange} 
             />
@@ -109,18 +120,18 @@ class StackForm extends React.Component{
             <Form.Control 
               as="textarea" 
               rows={5}
-              value={this.state.description ? this.state.description : ''}
+              value={this.state.description}
               name="description"
               onChange={this.handleChange} 
             />
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
-            <Form.Label>Stack Released Year (1950-2100</Form.Label>
+            <Form.Label>Stack Released Year (1950-2100)</Form.Label>
             <Form.Control 
               type="number" 
               min="1950" 
               max="2100" 
-              value={this.state.released_year ? this.state.released_year : 1950}
+              value={this.state.released_year}
               name="released_year"
               onChange={this.handleChange}
             />
@@ -130,14 +141,28 @@ class StackForm extends React.Component{
             <Form.Control 
               type="text" 
               placeholder="Enter stack link"
-              value={this.state.link ? this.state.link : ''}
+              value={this.state.link}
               name="link"
               onChange={this.handleChange}             
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" className='mr-3'>
             {type === 'create' ? 'Create' : 'Update'}
           </Button>
+          {type === 'update' ? (
+            <Button
+              variant="primary"
+              type="submit"
+              className='mr-3'
+              onClick={e =>
+                window.confirm("Are you sure you want to delete this stack?") &&
+                this.handleDelete()
+            }
+            >
+              Delete
+            </Button>
+            )
+            : (<></>)}
         </Form>
       </Container>
     );
@@ -153,11 +178,13 @@ StackForm.propTypes = {
   }).isRequired,  
   createStack: PropTypes.func.isRequired,
   updateStack: PropTypes.func.isRequired,
+  deleteStack: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = dispatch => bindActionCreators({
   createStack: CreateCall,
   updateStack: UpdateCall,
+  deleteStack: DeleteCall,
 }, dispatch);
 
 export default connect(null, mapDispatchToProps)(StackForm);

@@ -103,7 +103,7 @@ class NavBar extends Component {
                   <li>
                     <Link
                       to={{
-                        pathname: `/project/create`,
+                        pathname: `/projects/create`,
                         state: { project: null, type:'create' }
                       }}
                       className=''
@@ -135,7 +135,7 @@ class NavBar extends Component {
                   <li>
                     <Link
                       to={{
-                        pathname: `/stack/create`,
+                        pathname: `/stacks/create`,
                         state: { stack: null, type:'create' }
                       }}
                       className=''

@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,35 +12,42 @@ import style from '../style/StackDetail.module.css'
 
 const StackDetail = (props) => {
   const {stack, getStack, location } = props;
-  const { id } = location.state;
+  const [stackInfo, setStackInfo] = useState({});
+  
 
   useEffect(() => {
     (async () => {
       try {  
-        await getStack('stacks', id);
+        const { id } = location.state;
+        const data = await getStack('stacks', id);
+        setStackInfo(data);
       } catch (error) {
         console.log(error)
       }           
     })();
-  }, [id]);
+  }, []);
 
-  return stack.length === 0 ? <div className="d-flex justify-content-center align-items-center w-100"><Spinner animation="grow" /></div> : (
-    <div className={`container py-3 ${style.container2}`}>
-      <div className={`${style.title} text-center mt-5 mb-5"`}>Stack</div>
-      <div className="card mt-4">
+  return stackInfo.length === 0 ? <div className="d-flex justify-content-center align-items-center w-100"><Spinner animation="grow" /></div> : (
+    <div className={`py-3 ${style.container2}`}>
+      <div className={`${style.title} text-center mt-5 mb-5"`}>{stackInfo.name}</div>
+      <div className={`${style.card2} card mt-4`}>
         <div className="row ">
         
-          <div className="col-md-7 px-3">
+          <div className={`${style.colbg} px-3 col-md-7`}>
             <div className={`${style.cardblock} px-6`}>
-              <h4 className="card-title">{stack.name}</h4>
+              <h4 className="card-title">
+                Since
+                {' '}
+                {stackInfo.released_year}
+              </h4>
               <p className="card-text">
-                {stack.description}
+                {stackInfo.description}
               </p>
-              <a href={stack.link ? stack.link : "#"} className={`mt-4 ${style.btn2}`}>Read More</a>
+              <a href={stackInfo.link ? stackInfo.link : "#"} className={`mt-4 ${style.btn2} mr-3`}>Read More</a>
               <Link
                 to={{
-                        pathname: `/stack/${stack.name}/update`,
-                        state: { stack, type:'update' }
+                        pathname: `/stack/${stackInfo.name}/update`,
+                        state: { stack: stackInfo, type:'update' }
                       }}
                 className={`mt-4 ${style.btn2}`}
                 id="list-home-list"
@@ -52,7 +59,7 @@ const StackDetail = (props) => {
               </Link>
             </div>
           </div>
-          <div className="col-md-5">
+          <div className={`col-md-5 ${style.colpad}`}>
             <img className="d-block w-100" src="https://picsum.photos/150?image=380" alt="" />
           </div>
         </div>
