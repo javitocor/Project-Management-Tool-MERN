@@ -5,6 +5,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import $ from 'jquery';
+import generateKey from "../helpers/generateKey";
 import navbar from '../style/Navbar.module.css';
 
 class NavBar extends Component {
@@ -50,7 +51,17 @@ class NavBar extends Component {
                 Username
               </a>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a className="dropdown-item" href="#">Profile</a>
+                <Link
+                  key={generateKey('profile')}
+                  to='/profile'
+                  className='dropdown-item'
+                  id="list-home-list"
+                  data-toggle="list"
+                  role="tab"
+                  aria-controls="home"
+                >
+                  Profile
+                </Link>
                 <a className="dropdown-item" href="#">My Projects</a>
                 <div className="dropdown-divider" />
                 <a className="dropdown-item" href="#">LogOut</a>
@@ -65,18 +76,30 @@ class NavBar extends Component {
             </div>
   
             <ul className={`list-unstyled ${navbar.components} navbar-nav`}>
-              <p>Dashboard</p>
+              <p>
+                <Link
+                  key={generateKey('home')}
+                  to='/'
+                  className=''
+                  id="list-home-list"
+                  data-toggle="list"
+                  role="tab"
+                  aria-controls="home"
+                >
+                  Dashboard
+                </Link>
+              </p>
               <li className="">
-                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">Home</a>
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">Projects</a>
                 <ul className="collapse list-unstyled nav-item" id="homeSubmenu">
                   <li>
-                    <a href="#">Home 1</a>
+                    <a href="#">In Production</a>
                   </li>
                   <li>
-                    <a href="#">Home 2</a>
+                    <a href="#">In Development</a>
                   </li>
                   <li>
-                    <a href="#">Home 3</a>
+                    <a href="#">Standby</a>
                   </li>
                 </ul>
               </li>
@@ -84,21 +107,21 @@ class NavBar extends Component {
                 <a href="#">About</a>
               </li>
               <li>
-                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">Pages</a>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">Stacks</a>
                 <ul className="collapse list-unstyled" id="pageSubmenu">
                   <li>
-                    <a href="#">Page 1</a>
+                    <a href="#">Javascript</a>
                   </li>
                   <li>
-                    <a href="#">Page 2</a>
+                    <a href="#">Ruby</a>
                   </li>
                   <li>
-                    <a href="#">Page 3</a>
+                    <a href="#">Python</a>
                   </li>
                 </ul>
               </li>
               <li>
-                <a href="#">Portfolio</a>
+                <a href="#">Collaborations</a>
               </li>
               <li>
                 <a href="#">Contact</a>
