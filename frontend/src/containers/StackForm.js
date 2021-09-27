@@ -99,7 +99,7 @@ class StackForm extends React.Component{
             <Form.Control 
               type="text" 
               placeholder="Enter stack name" 
-              defaultValue={this.state.name ? this.state.name : ''}
+              value={this.state.name ? this.state.name : ''}
               name="name"
               onChange={this.handleChange} 
             />
@@ -109,7 +109,7 @@ class StackForm extends React.Component{
             <Form.Control 
               as="textarea" 
               rows={5}
-              defaultValue={this.state.description ? this.state.description : ''}
+              value={this.state.description ? this.state.description : ''}
               name="description"
               onChange={this.handleChange} 
             />
@@ -120,8 +120,8 @@ class StackForm extends React.Component{
               type="number" 
               min="1950" 
               max="2100" 
-              defaultValue={this.state.released_year ? this.state.released_year : 1950}
-              name="name"
+              value={this.state.released_year ? this.state.released_year : 1950}
+              name="released_year"
               onChange={this.handleChange}
             />
           </Form.Group>
@@ -130,7 +130,7 @@ class StackForm extends React.Component{
             <Form.Control 
               type="text" 
               placeholder="Enter stack link"
-              defaultValue={this.state.link ? this.state.link : ''}
+              value={this.state.link ? this.state.link : ''}
               name="link"
               onChange={this.handleChange}             
             />
