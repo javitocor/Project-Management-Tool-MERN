@@ -12,7 +12,7 @@ import { AllCall } from '../helpers/apiCalls';
 import style from '../style/Profile.module.css';
 
 const Profile = (props) => {
-  const {profilesList, getAllProfiles} = props;
+  const { getAllProfiles} = props;
   const [user, setUser] = useState({});
 
   useEffect(() => {
@@ -24,9 +24,9 @@ const Profile = (props) => {
         console.log(error)
       }           
     })();
-  }, []);
-
-  return profilesList.length === 0 ? <div className="d-flex justify-content-center align-items-center w-100"><Spinner animation="grow" /></div> : (
+  }, [getAllProfiles]);
+  console.log(user)
+  return user === {} ? <div className="d-flex justify-content-center align-items-center w-100"><Spinner animation="grow" /></div> : (
     <div className={`container-fluid ${style.bggrey}`}>
       <div className="row">
         <div className={`${style.profilenav} col-md-3`}>

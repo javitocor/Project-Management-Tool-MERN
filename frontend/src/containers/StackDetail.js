@@ -22,10 +22,10 @@ const StackDetail = (props) => {
         console.log(error)
       }           
     })();
-  }, []);
+  }, [id]);
 
   return stack.length === 0 ? <div className="d-flex justify-content-center align-items-center w-100"><Spinner animation="grow" /></div> : (
-    <div className="container py-3">
+    <div className={`container py-3 ${style.container2}`}>
       <div className={`${style.title} text-center mt-5 mb-5"`}>Stack</div>
       <div className="card mt-4">
         <div className="row ">

@@ -22,7 +22,7 @@ const ProjectsList = (props) => {
         console.log(error)
       }           
     })();
-  }, []);
+  }, [getAllProjects]);
 
   return projectsList.length === 0 ? <div className="d-flex justify-content-center align-items-center w-100"><Spinner animation="grow" /></div> : (
     <main role="main">

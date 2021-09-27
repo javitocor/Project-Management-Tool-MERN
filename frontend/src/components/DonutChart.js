@@ -22,7 +22,7 @@ const DonutChart = (props) => {
   return (
     <>
       <div className='header'>
-        <h1 className='title'>Doughnut Chart</h1>
+        <h1 className='title'>Projects Status</h1>
       </div>
       <Doughnut data={data} />
     </>

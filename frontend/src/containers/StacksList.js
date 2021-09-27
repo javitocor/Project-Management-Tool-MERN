@@ -22,10 +22,10 @@ const StacksList = (props) => {
         console.log(error)
       }           
     })();
-  }, []);
+  }, [getAllStacks]);
 
   return stacksList.length === 0 ? <div className="d-flex justify-content-center align-items-center w-100"><Spinner animation="grow" /></div> : (
-    <div className="container mx-auto mt-4">
+    <div className={`container mx-auto mt-4 ${style.container2}`}>
       <h1 className={style.title}>Stacks</h1>
       <div className="row">
         {stacksList.map(stack => {

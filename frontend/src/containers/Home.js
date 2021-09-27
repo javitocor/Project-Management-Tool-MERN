@@ -5,33 +5,40 @@
 /* eslint-disable react/style-prop-object */
 /* eslint-disable react/jsx-no-undef */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { Link } from "react-router-dom";
 import Spinner from 'react-bootstrap/Spinner';
+import HorizontalBarChart from '../components/HorizontalBarChart';
+import DonutChart from '../components/DonutChart';
 import { AllCall } from '../helpers/apiCalls';
 import countProjectStatus from '../helpers/countProjectStatus';
 import getPercentage from '../helpers/getPercentage';
 import style from '../style/Home.module.css';
 
 function Home(props) {
-  const {getAll, projectsList, stacksList} = props;
-  const featured = projectsList.sort(() => .5 - Math.random()).slice(0, 2);
+  const {getAll} = props;
+  const [featured, setFeatured] = useState([])
+  const [projects, setProjects] = useState([])
+  const [ stacks, setStacks] = useState([]);
 
   useEffect(() => {
     (async () => {
       try {  
-        await getAll('projects');
-        await getAll('stacks');
+        const data = await getAll('projects');
+        const data2 = await getAll('stacks');
+        setStacks(data2)
+        setProjects(data)
+        setFeatured(data.sort(() => .5 - Math.random()).slice(0, 2))        
       } catch (error) {
         console.log(error)
       }           
     })();
-  }, []);
-
-  return projectsList.length === 0 || stacksList.length === 0 ? <div className="d-flex justify-content-center align-items-center w-100"><Spinner animation="grow" /></div> : (
+  }, [getAll]);
+  
+  return projects.length === 0 || stacks.length === 0 ? <div className="d-flex justify-content-center align-items-center w-100"><Spinner animation="grow" /></div> : (
     <div className={`${style.greybg} container-fluid`}>
       <section id="minimal-statistics">
         <div className="row">
@@ -47,10 +54,10 @@ function Home(props) {
                 <div className="card-body">
                   <div className="media d-flex">
                     <div className="align-self-center">
-                      <i className="fas fa-project-diagram text-primary" />
+                      <i className="fas fa-project-diagram fa-2x text-primary" />
                     </div>
                     <div className="media-body text-right">
-                      <h3>{projectsList.length}</h3>
+                      <h3>{projects.length}</h3>
                       <span>Total Projects</span>
                     </div>
                   </div>
@@ -64,10 +71,10 @@ function Home(props) {
                 <div className="card-body">
                   <div className="media d-flex">
                     <div className="align-self-center">
-                      <i className="fas fa-laptop-code text-success" />
+                      <i className="fas fa-laptop-code fa-2x text-info" />
                     </div>
                     <div className="media-body text-right">
-                      <h3>{stacksList.length}</h3>
+                      <h3>{stacks.length}</h3>
                       <span>Technologies Used</span>
                     </div>
                   </div>
@@ -81,7 +88,7 @@ function Home(props) {
                 <div className="card-body">
                   <div className="media d-flex">
                     <div className="align-self-center">
-                      <i className="fas fa-user-tie text-info" />
+                      <i className="fas fa-user-tie fa-2x text-info" />
                     </div>
                     <div className="media-body text-right">
                       <h3>2019</h3>
@@ -98,7 +105,7 @@ function Home(props) {
                 <div className="card-body">
                   <div className="media d-flex">
                     <div className="align-self-center">
-                      <i className="fas fa-glasses text-secondary" />
+                      <i className="fas fa-glasses fa-2x text-secondary" />
                     </div>
                     <div className="media-body text-right">
                       <h3>423</h3>
@@ -118,15 +125,15 @@ function Home(props) {
                 <div className="card-body">
                   <div className="media d-flex">
                     <div className="media-body text-left">
-                      <h3 className="text-success">{countProjectStatus(projectsList, 'Production')}</h3>
+                      <h3 className="text-success">{countProjectStatus(projects, 'Production')}</h3>
                       <span>In Production</span>
                     </div>
                     <div className="align-self-center">
-                      <i className="fas fa-network-wired text-success" />
+                      <i className="fas fa-network-wired fa-2x text-success" />
                     </div>
                   </div>
                   <div className="progress mt-1 mb-0" style={{height: "7px"}}>
-                    <div className="progress-bar bg-primary" role="progressbar" style={{width: getPercentage(countProjectStatus(projectsList, 'Production'), projectsList.length)}} aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" />
+                    <div className="progress-bar bg-success" role="progressbar" style={{width: getPercentage(countProjectStatus(projects, 'Production'), projects.length)}} aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" />
                   </div>
                 </div>
               </div>
@@ -138,15 +145,15 @@ function Home(props) {
                 <div className="card-body">
                   <div className="media d-flex">
                     <div className="media-body text-left">
-                      <h3 className="text-primary">{countProjectStatus(projectsList, 'Development')}</h3>
+                      <h3 className="text-primary">{countProjectStatus(projects, 'Development')}</h3>
                       <span>In Development</span>
                     </div>
                     <div className="align-self-center">
-                      <i className="fas fa-terminal text-primary" />
+                      <i className="fas fa-terminal fa-2x text-primary" />
                     </div>
                   </div>
                   <div className="progress mt-1 mb-0" style={{height: "7px"}}>
-                    <div className="progress-bar bg-warning" role="progressbar" style={{width: getPercentage(countProjectStatus(projectsList, 'Development'), projectsList.length)}} aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" />
+                    <div className="progress-bar bg-primary" role="progressbar" style={{width: getPercentage(countProjectStatus(projects, 'Development'), projects.length)}} aria-valuenow="35" aria-valuemin="0" aria-valuemax="100" />
                   </div>
                 </div>
               </div>
@@ -159,15 +166,15 @@ function Home(props) {
                 <div className="card-body">
                   <div className="media d-flex">
                     <div className="media-body text-left">
-                      <h3 className="text-warning">{countProjectStatus(projectsList, 'Standby')}</h3>
+                      <h3 className="text-warning">{countProjectStatus(projects, 'Standby')}</h3>
                       <span>In Standby</span>
                     </div>
                     <div className="align-self-center">
-                      <i className="fas fa-pause text-warning" />
+                      <i className="fas fa-pause fa-2x text-warning" />
                     </div>
                   </div>
                   <div className="progress mt-1 mb-0" style={{height: "7px"}}>
-                    <div className="progress-bar bg-success" role="progressbar" style={{width: getPercentage(countProjectStatus(projectsList, 'Standby'), projectsList.length)}} aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" />
+                    <div className="progress-bar bg-warning" role="progressbar" style={{width: getPercentage(countProjectStatus(projects, 'Standby'), projects.length)}} aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" />
                   </div>
                 </div>
               </div>
@@ -178,10 +185,10 @@ function Home(props) {
       <section>
         <div className='row'>
           <div className="col-8 mt-3 mb-1">
-            <HorizontalBarChart stacks={stacksList} projects={projectsList} />
+            <HorizontalBarChart stacks={stacks} projects={projects} />
           </div>
           <div className="col-4 mt-3 mb-1">
-            <DonutChart projects={projectsList} />
+            <DonutChart projects={projects} />
           </div>
         </div>
       </section> 
@@ -192,9 +199,9 @@ function Home(props) {
           </div>
         </div>
         <div className="row">
-          <div className="col-12 mt-3 mb-2">
+          <div className="col-12 mb-2">
             <div id={style.moviecardlist}>
-              {featured.map(project => {        
+              {featured.map(project => (        
                 <div className={style.moviecard}>
                   <div className={style.coloroverlay}>
                     <div className={style.movieshare}>
@@ -211,7 +218,7 @@ function Home(props) {
                     <div className={style.moviecontent}>
                       <div className={style.movieheader}>
                         <h1 className={style.movietitle}>{project.name}</h1>
-                        <h4 className={style.movieinfo}>{project.stack.join(',')}</h4>
+                        <h4 className={style.movieinfo}>{project.stack.map(stack=>stack.name).join(' ')}</h4>
                       </div>
                       <p className={style.moviedesc}>
                         {project.description.substring(0, 38)}
@@ -222,7 +229,7 @@ function Home(props) {
                     </div>
                   </div>
                 </div>
-               })}
+              ))}
             </div>
           </div>
         </div>
@@ -234,7 +241,6 @@ function Home(props) {
 Home.propTypes = {
   projects: PropTypes.shape({
     error: PropTypes.object,
-    pending: PropTypes.bool,
     projectsList: PropTypes.arrayOf(PropTypes.object),
   }).isRequired,
   stacks: PropTypes.shape({
@@ -249,7 +255,6 @@ const mapStateToProps = state => ({
   projects: {
     error: state.projects.error,
     projectsList: state.projects.projectsList,
-    pending: state.projects.pending,
   },
   stacks: {
     error: state.stacks.error,

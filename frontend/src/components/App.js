@@ -29,8 +29,8 @@ const App = () => (
       </>
     </Switch>
   </Router> */
-  <NavBar>
-    <Router>
+  <Router>
+    <NavBar>    
       <Switch>
         <>
           <Route exact path="/" component={Home} />
@@ -46,9 +46,9 @@ const App = () => (
           <Route exact path="/stack/:name/update" component={StackForm} />
           <Route path="*" component={NoPageMatch} /> 
         </>
-      </Switch>
-    </Router>
-  </NavBar>
+      </Switch>    
+    </NavBar>
+  </Router>
 );
 
 export default App;

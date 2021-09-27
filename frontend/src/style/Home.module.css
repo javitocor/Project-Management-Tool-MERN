@@ -11,6 +11,7 @@
 
 .greybg {  
   background-color: #F5F7FA;
+  color: black !important;
 }
 
 body {
@@ -33,7 +34,7 @@ text-decoration: none;
 }
 
 .moviecard {
-background-image: url(http://digitalspyuk.cdnds.net/15/47/1600x800/landscape-1447754794-harrison-ford-blade-runner.jpg);
+background-image: url('http://digitalspyuk.cdnds.net/15/47/1600x800/landscape-1447754794-harrison-ford-blade-runner.jpg');
 background-size: contain;
 background-position: -40% 80%;
 background-repeat: no-repeat;
@@ -64,6 +65,7 @@ border-radius: 8px;
 background: -webkit-gradient(linear, left top, right top, from(rgba(42, 159, 255, 0.2)), color-stop(60%, #212120), to(#212120));
 background: linear-gradient(to right, rgba(42, 159, 255, 0.2) 0%, #212120 60%, #212120 100%);
 background-blend-mode: multiply;
+padding: 1.2em;
 }
 
 h1, h2, h3 {
@@ -114,11 +116,11 @@ color: white;
 .btnoutline {
 background-color: transparent;
 border: 3px solid #ffffff;
+border-radius: 4px;
 }
 
 .btn2::before {
 font-family: 'Material Icons';
-content: '\e037';
 vertical-align: middle;
 font-size: 1.5em;
 padding-right: .5em;
@@ -134,15 +136,16 @@ color: #2a9fff;
 .movieshare {
 padding: 1em;
 display: inline-block;
-width: 15%;
+width: 25%;
 }
 
-.movieshareicon i {
-font-size: 1.2em;
+.movieshareicon {
 margin-left: .5em;
 color: #ffffff;
 mix-blend-mode: lighten;
 opacity: .4;
+font-size: 1.3em;
+margin-right: 0.5em;
 }
 
 .movieshareicon i:hover {
@@ -151,36 +154,40 @@ mix-blend-mode: lighten;
 }
 
 @media (max-width: 1000px) {
-.moviecontent {
-  width: 50%;
-  max-width: 95%;
-}
+  .moviecontent {
+    width: 50%;
+    max-width: 95%;
+  }
 }
 @media (max-width: 800px) {
-.moviecard {
-  width: 95%;
-  max-width: 95%;
-}
+  .moviecard {
+    width: 95%;
+    max-width: 95%;
+  }
 }
 @media (max-width: 600px) {
-.moviecard, .moviecard:nth-child(2), .moviecard:nth-child(3) {
-  background-position: 50% 0%;
-  background-size: cover;
-  height: 400px;
+  .moviecard, .moviecard:nth-child(2), .moviecard:nth-child(3) {
+    background-position: 50% 0%;
+    background-size: cover;
+    height: 400px;
+  }
+
+  .coloroverlay {
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(42, 159, 255, 0.2)), color-stop(60%, #212120), to(#212120));
+    background: linear-gradient(to bottom, rgba(42, 159, 255, 0.2) 0%, #212120 60%, #212120 100%);
+  }
+
+  .moviecontent {
+    margin-top: 4.2em;
+    width: 90%;
+  }
+
+  .movieshare {
+    display: block;
+    width: 100%;
+  }
 }
 
-.coloroverlay {
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(42, 159, 255, 0.2)), color-stop(60%, #212120), to(#212120));
-  background: linear-gradient(to bottom, rgba(42, 159, 255, 0.2) 0%, #212120 60%, #212120 100%);
-}
-
-.moviecontent {
-  margin-top: 4.2em;
-  width: 90%;
-}
-
-.movieshare {
-  display: block;
-  width: 100%;
-}
+.fa-project-diagram {
+  font-size: 3em;
 }

@@ -18,7 +18,6 @@ class NavBar extends Component {
   }
 
   toggleClass() {
-    console.log('hello')
     const currentState = this.state.active;
     this.setState({ active: !currentState });
   };

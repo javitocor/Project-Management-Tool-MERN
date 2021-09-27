@@ -30,19 +30,19 @@ const HorizontalBarChart = (props) => {
     },
     responsive: true,
     plugins: {
-      legend: {
-        position: 'right',
-      },
       title: {
         display: true,
-        text: "Project's Status",
+        text: "Stacks Used",
       },
+      legend:{
+        display: false,
+      }
     },
   };
  return (
    <>
      <div className='header'>
-       <h1 className='title'>Horizontal Bar Chart</h1>
+       <h1 className='title'>Stacks</h1>
      </div>
      <Bar data={data} options={options} />
    </>

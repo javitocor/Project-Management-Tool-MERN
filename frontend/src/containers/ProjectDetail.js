@@ -23,7 +23,7 @@ const ProjectDetail = (props) => {
         console.log(error)
       }           
     })();
-  }, []);
+  }, [id]);
 
   return project.length === 0 ? <div className="d-flex justify-content-center align-items-center w-100"><Spinner animation="grow" /></div> : (
     <div className={`container ${style.containercontact}`}>
