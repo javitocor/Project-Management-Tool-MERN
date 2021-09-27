@@ -1,6 +1,7 @@
 .content {
   width: 100%;
-  height: 100%;
-  background-color: rgb(230, 222, 222);
+  height: auto;
+  background-color: #d4d3d3;
   padding-top: 5em;
+  padding-bottom: 5em;
 }

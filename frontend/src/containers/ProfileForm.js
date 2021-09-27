@@ -119,6 +119,7 @@ class StackForm extends React.Component{
                 aria-label="Floating label select example"
                 name='work_status'
                 onChange={this.handleChange}
+                defaultValue={user.work_status}
               >
                 <option>Open this select menu</option>
                 <option value="Working">Working</option>
@@ -199,7 +200,7 @@ class StackForm extends React.Component{
             </Form.Group>
             <Form.Group>
               <Form.Label>DOB</Form.Label>
-              <Form.Control type="date" name="dob" placeholder="Due date" onChange={this.handleChange} />
+              <Form.Control type="date" name="dob" placeholder={user.dob} onChange={this.handleChange} defaultValue={user.dob} />
             </Form.Group>
             <Row className='mt-3'>
               <Col>
