@@ -30,6 +30,7 @@ exports.profile_create = async (req, res, next) => {
       });
     };
     try {
+      const url = req.protocol + '://' + req.get('host')
       const {firstname, lastname, about, dob, email, gender, phone, github, linkedin, angelist, city, country, work_status} = req.body;
       const profile = new Profile({
         firstname,
@@ -42,7 +43,7 @@ exports.profile_create = async (req, res, next) => {
         city,
         country,
         work_status,
-        /*avatar: req.file.filename,*/
+        avatar: url + '/public/images/' + req.file.filename,
       });
       if (github) {
         await profile.socialMedia.set('Github', github)
@@ -70,8 +71,15 @@ exports.profile_update = async (req, res, next) => {
       });
     };*/
     try {
+      const url = req.protocol + '://' + req.get('host')
+      let avatar = null;
+      if (req.file !== undefined) {
+        avatar = url + '/public/images/' + req.file.filename ;
+      } else {
+        avatar = req.body.avatar
+      }      
       const {github, linkedin, angelist} = req.body;
-      const profile = await Profile.findByIdAndUpdate(req.params.id, { $set: req.body, updated_at: Date.now() }, {new: true});
+      const profile = await Profile.findByIdAndUpdate(req.params.id, { $set: req.body, updated_at: Date.now(), avatar }, {new: true});
       if (github) {
         await profile.socialMedia.set('Github', github)
       }
@@ -85,7 +93,7 @@ exports.profile_update = async (req, res, next) => {
       res.status(200);
       res.json({message: 'Profile updated successfully', profile});
     } catch (error) {
-      res.json(error)
+      console.log(error)
       next();
     }
 };

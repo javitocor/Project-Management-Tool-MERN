@@ -1,3 +1,11 @@
+/* eslint-disable radix */
+/* eslint-disable vars-on-top */
+/* eslint-disable camelcase */
+/* eslint-disable no-var */
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-undef */
+/* eslint-disable react/sort-comp */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
@@ -10,7 +18,7 @@ import { Button, Container, Form, Row, Col} from 'react-bootstrap';
 import { UpdateCall } from '../helpers/apiCalls';
 import style from '../style/ProfileForm.module.css';
 
-class StackForm extends React.Component{
+class ProfileForm extends React.Component{
   constructor(props) {
     super(props);
     const { location } = this.props;
@@ -28,6 +36,10 @@ class StackForm extends React.Component{
     this.setState({[event.target.name]: event.target.value})
   }
 
+  onFileChange = (e) => {
+    this.setState({ avatar: e.target.files[0] })
+  }
+
   async handleSubmit (event) {    
     event.preventDefault();
     const { location, updateProfile } = this.props;
@@ -35,7 +47,23 @@ class StackForm extends React.Component{
     const updated = {...user, ...this.state}
     const token = this.getCookie('csrftoken');
     try {
-      const data = await updateProfile('profile', token, updated, user._id);
+      const formData = new FormData();
+       formData.append('avatar', updated.avatar)
+      formData.append('firstname', updated.firstname)
+      formData.append('lastname', updated.lastname)
+      formData.append('phone', parseInt(updated.phone))
+      formData.append('country', updated.country)
+      formData.append('city', updated.city)
+      formData.append('email', updated.email)
+      formData.append('gender', updated.gender)
+      formData.append('work_status', updated.work_status)
+      formData.append('dob', updated.dob) 
+      /* var form_data = new FormData();
+
+      for ( var key in updated ) {
+          form_data.append(key, updated[key]);
+      } */
+      await updateProfile('profile', token, formData, user._id);
       this.props.history.push('/profile');
     } catch (error) {
       console.log(error)
@@ -240,6 +268,9 @@ class StackForm extends React.Component{
                 </Form.Group>
               </Col>
             </Row>
+            <div className="form-group">
+              <input type="file" onChange={this.onFileChange} name='avatar' />
+            </div>
             <Button variant="outline-secondary" type="submit" className='mt-3'>
               Edit Profile
             </Button>
@@ -250,7 +281,7 @@ class StackForm extends React.Component{
   };
 };
 
-StackForm.propTypes = {
+ProfileForm.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({ 
       user: PropTypes.object.isRequired, 
@@ -263,4 +294,4 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   updateProfile: UpdateCall,
 }, dispatch);
 
-export default connect(null, mapDispatchToProps)(StackForm);
+export default connect(null, mapDispatchToProps)(ProfileForm);

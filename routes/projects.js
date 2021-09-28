@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var upload = require('../uploadImages/uploads');
 const validations = require('../validations/validations');
 
 var project_controller = require('../controllers/projectController');

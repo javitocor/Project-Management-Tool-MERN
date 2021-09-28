@@ -1,6 +1,5 @@
 let multer = require('multer');
 
-const DIR = './public/';
 
 const storage = multer.diskStorage({
     destination: './public/images',
@@ -20,4 +19,4 @@ exports.upload = multer({
             return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
         }
     }
-}).single('logo');
+}).single('avatar');
