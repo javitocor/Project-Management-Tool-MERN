@@ -44,7 +44,6 @@ const App = () => (
           <Route exact path="/stacks/create" component={StackForm} />
           <Route exact path="/stack/:name" component={StackDetail} />
           <Route exact path="/stack/:name/update" component={StackForm} />
-          <Route path="*" component={NoPageMatch} /> 
         </>
       </Switch>    
     </NavBar>

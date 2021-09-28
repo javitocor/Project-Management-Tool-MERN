@@ -1,3 +1,5 @@
+/* eslint-disable prefer-const */
+/* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-plusplus */
@@ -5,43 +7,54 @@ import React from "react";
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Redirect } from 'react-router-dom';
 import { Button, Container, Form, Col, Row } from 'react-bootstrap';
-import { UpdateCall, CreateCall, AllCall } from '../helpers/apiCalls';
+import { UpdateCall, CreateCall, AllCall, DeleteCall } from '../helpers/apiCalls';
+import style from '../style/ProjectForm.module.css';
 
 class ProjectForm extends React.Component{
   constructor(props) {
     super(props);
-    this.state= {};
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  async componentDidMount() {
-    const { location, getStacks} = this.props;
-    const { type, project  } = location.state;
-    if (type === 'create') {
-      this.setState({ 
+    this.state= {
         name: '',
         description: '',
         status: '',
         year: 1980,
         stack: [],
         links: {}
-      })
-    } else if (type === 'update') {
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  async componentDidMount() {
+    const { location, getStacks} = this.props;
+    const { type, project  } = location.state;    
+    try {
+     await getStacks('stacks');
+     if (type === 'update') {
       this.setState(project)
     }
-    try {
-      await getStacks('stacks');
     } catch(error) {
       console.log(error)
+    }
+  }
+
+  handleSelect = (event) => {
+    if (event.target.name === 'stack') {
+      const selected=[];
+      let selectedOption=(event.target.selectedOptions);
+  
+      for (let i = 0; i < selectedOption.length; i++){
+          selected.push(selectedOption.item(i).value)
+      }
+    
+      this.setState({stack: selected});
     }
   }
 
   handleChange = (event) => {
     if (event.target.name === 'status') {
       this.setState({[event.target.name]: event.target.checked})
-    }
+    }    
     this.setState({[event.target.name]: event.target.value})
   }
 
@@ -50,32 +63,41 @@ class ProjectForm extends React.Component{
     const { location, createProject, updateProject } = this.props;
     const { type, project  } = location.state;
     const token = this.getCookie('csrftoken');
+
     try {
       if(type === 'create') {
         const data = await createProject('projects', token, this.state);
-          <Redirect 
-            to={{
-            pathname: `/project/${data.name}`,
-            state: {
-              id: data._id,
-            },
-          }}
-          />
+        this.props.history.push({
+          pathname:`/project/${data.project.name}`,
+          state: {
+            id: data.project._id,
+          },
+        });
       } else if (type === 'update') {
         const data = await updateProject('projects', token, this.state, project._id);
-          <Redirect 
-            to={{
-            pathname: `/project/${data.name}`,
-            state: {
-              id: data._id,
-            },
-          }}
-          />
+        this.props.history.push({
+          pathname:`/project/${data.project.name}`,
+          state: {
+            id: data.project._id,
+          },
+        });
       }
     } catch (error) {
       console.log(error)
     }
   }  
+
+  async handleDelete (e) {
+    const { location, deleteProject } = this.props;
+    const { project } = location.state;
+    const token = this.getCookie('csrftoken');
+    try {
+      await deleteProject('projects', token, project._id)
+      this.props.history.push('/projects');
+    } catch(error) {
+      console.log(error)
+    }
+  }
 
   getCookie = (name) => {
     let cookieValue = null;
@@ -83,7 +105,6 @@ class ProjectForm extends React.Component{
         const cookies = document.cookie.split(';');
         for (let i = 0; i < cookies.length; i++) {
             const cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
             if (cookie.substring(0, name.length + 1) === (`${name  }=`)) {
                 cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                 break;
@@ -92,10 +113,11 @@ class ProjectForm extends React.Component{
     }
     return cookieValue;
   }
-
+  
   render() {
-    const { location, stacksList} = this.props;
-    const { type, project  } = location.state;
+    const { location, stacks} = this.props;
+    const {stacksList} = stacks;
+    const { type } = location.state;
     return (
       <Container>
         <h1>
@@ -109,7 +131,7 @@ class ProjectForm extends React.Component{
             <Form.Control 
               type="text" 
               placeholder="Enter project name" 
-              defaultValue={this.state.name ? this.state.name : ''}
+              defaultValue={this.state.name}
               name="name"
               onChange={this.handleChange} 
             />
@@ -119,7 +141,7 @@ class ProjectForm extends React.Component{
             <Form.Control 
               as="textarea" 
               rows={5}
-              defaultValue={this.state.description ? this.state.description : ''}
+              defaultValue={this.state.description}
               name="description"
               onChange={this.handleChange} 
             />
@@ -130,8 +152,8 @@ class ProjectForm extends React.Component{
               type="number" 
               min="1950" 
               max="2100" 
-              defaultValue={this.state.released_year ? this.state.released_year : 1980}
-              name="name"
+              value={this.state.year}
+              name="year"
               onChange={this.handleChange}
             />
           </Form.Group>
@@ -145,6 +167,7 @@ class ProjectForm extends React.Component{
                   inline
                   type="radio"
                   label="Production"
+                  value='Production'
                   checked={this.state.status === 'Production'}
                   name="status"
                   id="status1"
@@ -154,15 +177,17 @@ class ProjectForm extends React.Component{
                   inline
                   type="radio"
                   label="Development"
+                  value='Development'
                   checked={this.state.status === 'Development'}
                   name="status"
                   id="status2"
                   onChange={this.handleChange}
                 />
                 <Form.Check
-                  Inline
+                  inline
                   type="radio"
                   label="Standby"
+                  value='Standby'
                   checked={this.state.status === 'Standby'}
                   name="status"
                   id="status3"
@@ -171,19 +196,33 @@ class ProjectForm extends React.Component{
               </Row>
             </Form.Group>
           </fieldset>
-          <Form.Group as={Col} controlId="formState">
+          <Form.Group controlId="formState">
             <Form.Label>Stack</Form.Label>
-            <Form.Control as="select" multiple name="stack" value={this.state.stack} onChange={this.handleChange}>
-              {stacksList.map(stack => (
+            <Form.Control as="select" multiple name="stack" value={this.state.stack.some(obj => obj.name ) ? this.state.stack.map(stack=>stack._id) : this.state.stack} onChange={this.handleSelect}>
+              {stacksList && stacksList.map(stack => (
                 <option key={stack.name} value={stack._id}>
                   {stack.name}
                 </option>
               ))}
             </Form.Control>
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" className="mt-3 mr-3">
             {type === 'create' ? 'Create' : 'Update'}
           </Button>
+          {type === 'update' ? (
+            <Button
+              variant="primary"
+              type="submit"
+              className={`${style.btn2} mr-3 mt-3`}
+              onClick={e =>
+                window.confirm("Are you sure you want to delete this stack?") &&
+                this.handleDelete()
+            }
+            >
+              Delete
+            </Button>
+            )
+            : (<></>)}
         </Form>
       </Container>
     );
@@ -197,9 +236,15 @@ ProjectForm.propTypes = {
       type: PropTypes.string.isRequired 
     }),
   }).isRequired,  
+  stacks: PropTypes.shape({
+    error: PropTypes.object,
+    pending: PropTypes.bool,
+    stacksList: PropTypes.arrayOf(PropTypes.object),
+  }).isRequired,
   createProject: PropTypes.func.isRequired,
   updateProject: PropTypes.func.isRequired,
   getStacks: PropTypes.func.isRequired,
+  deleteProject: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -214,6 +259,7 @@ const mapDispatchToProps = dispatch => bindActionCreators({
   createProject: CreateCall,
   updateProject: UpdateCall,
   getStacks: AllCall,
+  deleteProject: DeleteCall
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectForm);

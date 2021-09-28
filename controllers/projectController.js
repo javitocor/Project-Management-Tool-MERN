@@ -82,12 +82,12 @@ exports.project_update = async (req, res, next) => {
       req.body.stack = new Array(req.body.stack);
     }
   }
-  const errors = validationResult(req);
+  /*const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({
       errors: errors.array()
     });
-  };
+  };*/
 
   try {
     const {github, liveLink} = req.body;

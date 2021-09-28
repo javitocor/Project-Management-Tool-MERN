@@ -21,6 +21,12 @@ body{
   height: 500px;
 }
 
+.containercontact {
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+}
+
 .containercontact div[class^="col-"] {
   position: relative;
   min-height: 1px;

@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/forbid-prop-types */
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -13,20 +13,22 @@ import style from '../style/Projectdetail.module.css';
 
 const ProjectDetail = (props) => {
   const {project, getProject, location } = props;
-  const { id } = location.state;
+  const [projectInfo, setProjectInfo] = useState()
 
   useEffect(() => {
     (async () => {
-      try {  
-        await getProject('projects', id);
+      try { 
+        const { id } = location.state;
+        const data = await getProject('projects', id);
+        setProjectInfo(data)
       } catch (error) {
         console.log(error)
       }           
     })();
-  }, [id]);
-
-  return project.length === 0 ? <div className="d-flex justify-content-center align-items-center w-100"><Spinner animation="grow" /></div> : (
-    <div className={`container ${style.containercontact}`}>
+  }, []);
+  
+  return projectInfo === undefined ? <div className="d-flex justify-content-center align-items-center w-100"><Spinner animation="grow" /></div> : (
+    <div className={style.containercontact}>
       <div className={`row ${style.decordefault}`}>
         <div className="col-md-12">
           <div className={style.contact}>
@@ -38,49 +40,39 @@ const ProjectDetail = (props) => {
             <div className="row">
               <div className="col-lg-4 col-md-4 col-md-5 col-xs-12">
                 <div className="row">
-                  <div className="col-3">
+                  <div className="col-4">
                     Name of the project:
                   </div>
-                  <div className="col-9">
-                    {project.name}
+                  <div className="col-8">
+                    {projectInfo.name}
                   </div>
                   <div className="col-3">
                     Year:
                   </div>
                   <div className="col-9">
-                    {project.year}
+                    {projectInfo.year}
                   </div>
                   <div className="col-3">
                     Status:
                   </div>
                   <div className="col-9">
-                    {project.status}
-                  </div>                
-                  {project.links.map(link=>{   
-                    <>                 
-                      <div className="col-3">
-                        Github:
-                      </div>  
-                      <div className="col-9">
-                        {link}
-                      </div>
-                    </>
-                  })}                  
+                    {projectInfo.status}
+                  </div>        
                   <div className="col-3">
                     Stack:
                   </div>
                   <div className="col-9">
                     <ul>
-                      {project.stack.map(stack=>{
+                      {projectInfo.stack.map(stack=>(
                         <li>{stack.name}</li>
-                      })}
+                      ))}
                     </ul>
                   </div>
                   <div className="col-12">
                     <Link
                       to={{
-                        pathname: `/project/${project.name}/update`,
-                        state: { project, type:'update' }
+                        pathname: `/project/${projectInfo.name}/update`,
+                        state: { project: projectInfo, type:'update' }
                       }}
                       className='btn btn-outline-secondary'
                       id="list-home-list"
@@ -94,7 +86,7 @@ const ProjectDetail = (props) => {
                 </div>
               </div>
               <div className="col-lg-8 col-md-7 col-xs-12">
-                <p className={style.contactdescription}>{project.description}</p>
+                <p className={style.contactdescription}>{projectInfo.description}</p>
               </div>
             </div>
           </div>
