@@ -53,9 +53,10 @@ class ProjectForm extends React.Component{
 
   handleChange = (event) => {
     if (event.target.name === 'status') {
-      this.setState({[event.target.name]: event.target.checked})
-    }    
-    this.setState({[event.target.name]: event.target.value})
+      this.setState({[event.target.name]: event.target.value})
+    } else {
+      this.setState({[event.target.name]: event.target.value})
+    }  
   }
 
   async handleSubmit (event) {
@@ -63,7 +64,6 @@ class ProjectForm extends React.Component{
     const { location, createProject, updateProject } = this.props;
     const { type, project  } = location.state;
     const token = this.getCookie('csrftoken');
-
     try {
       if(type === 'create') {
         const data = await createProject('projects', token, this.state);
@@ -74,6 +74,8 @@ class ProjectForm extends React.Component{
           },
         });
       } else if (type === 'update') {
+        let newStack = this.state.stack.some(obj => obj.name ) ? this.state.stack.map(stack=>stack._id) : this.state.stack
+        await this.setState({stack: newStack})
         const data = await updateProject('projects', token, this.state, project._id);
         this.props.history.push({
           pathname:`/project/${data.project.name}`,
@@ -117,9 +119,9 @@ class ProjectForm extends React.Component{
   render() {
     const { location, stacks} = this.props;
     const {stacksList} = stacks;
-    const { type } = location.state;
+    const { type, project } = location.state;
     return (
-      <Container>
+      <Container className={style.container2}>
         <h1>
           {type === 'create' ? 'Create' : 'Update'}
           {' '}
@@ -198,7 +200,7 @@ class ProjectForm extends React.Component{
           </fieldset>
           <Form.Group controlId="formState">
             <Form.Label>Stack</Form.Label>
-            <Form.Control as="select" multiple name="stack" value={this.state.stack.some(obj => obj.name ) ? this.state.stack.map(stack=>stack._id) : this.state.stack} onChange={this.handleSelect}>
+            <Form.Control as="select" multiple className={style.select} name="stack" value={this.state.stack.some(obj => obj.name ) ? this.state.stack.map(stack=>stack._id) : this.state.stack} onChange={this.handleSelect}>
               {stacksList && stacksList.map(stack => (
                 <option key={stack.name} value={stack._id}>
                   {stack.name}
@@ -206,16 +208,16 @@ class ProjectForm extends React.Component{
               ))}
             </Form.Control>
           </Form.Group>
-          <Button variant="primary" type="submit" className="mt-3 mr-3">
+          <Button variant="outline-secondary" type="submit" className="mt-3 mr-3">
             {type === 'create' ? 'Create' : 'Update'}
           </Button>
           {type === 'update' ? (
             <Button
-              variant="primary"
+              variant="outline-secondary"
               type="submit"
               className={`${style.btn2} mr-3 mt-3`}
               onClick={e =>
-                window.confirm("Are you sure you want to delete this stack?") &&
+                window.confirm("Are you sure you want to delete this project?") &&
                 this.handleDelete()
             }
             >

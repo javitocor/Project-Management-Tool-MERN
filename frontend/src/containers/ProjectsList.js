@@ -78,7 +78,7 @@ const ProjectsList = (props) => {
                           id: stack._id,
                         },
                       }}
-                        className="badge badge-pill badge-secondary"
+                        className="badge badge-pill badge-secondary mr-1"
                         id="list-home-list"
                         data-toggle="list"
                         role="tab"

@@ -40,10 +40,10 @@ const ProjectDetail = (props) => {
             <div className="row">
               <div className="col-lg-4 col-md-4 col-md-5 col-xs-12">
                 <div className="row">
-                  <div className="col-4">
-                    Name of the project:
+                  <div className="col-3">
+                    Project Name:
                   </div>
-                  <div className="col-8">
+                  <div className="col-9">
                     {projectInfo.name}
                   </div>
                   <div className="col-3">
@@ -64,7 +64,22 @@ const ProjectDetail = (props) => {
                   <div className="col-9">
                     <ul>
                       {projectInfo.stack.map(stack=>(
-                        <li>{stack.name}</li>
+                        <li>
+                          <Link
+                            to={{
+                              pathname: `/stack/${stack.name}`,
+                              state: { id: stack._id }
+                            }}
+                            className=''
+                            id="list-home-list"
+                            data-toggle="list"
+                            role="tab"
+                            aria-controls="home"
+                          >
+                            {stack.name}
+                          </Link>
+                          
+                        </li>
                       ))}
                     </ul>
                   </div>

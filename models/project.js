@@ -11,7 +11,7 @@ var ProjectSchema = new Schema({
       type: Map,
       of: String,
     },
-    status: {type: String, enum: ['Development', 'Standby', 'Production'], default: 'Production'},
+    status: {type: String, enum: ['Development', 'Standby', 'Production']},
     created_at: { type: Date, default: Date.now },
     updated_at: { type: Date, default: Date.now },
 });
