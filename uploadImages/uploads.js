@@ -3,12 +3,10 @@ let multer = require('multer');
 const DIR = './public/';
 
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, DIR);
-    },
+    destination: './public/images',
     filename: (req, file, cb) => {
         const fileName = file.originalname.toLowerCase().split(' ').join('-');
-        cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+        cb(null, Date.now() + '-' + fileName)
     }
 });
 
