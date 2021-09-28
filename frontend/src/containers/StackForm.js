@@ -1,3 +1,4 @@
+/* eslint-disable react/sort-comp */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-plusplus */
@@ -17,6 +18,7 @@ class StackForm extends React.Component{
       description: '',
       link: '',
       released_year: 1950,
+      logo: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
@@ -35,6 +37,10 @@ class StackForm extends React.Component{
     this.setState({[event.target.name]: event.target.value})
   }
 
+  onFileChange = (e) => {
+    this.setState({ logo: e.target.files[0] })
+  }
+
   async handleSubmit (event) {
     event.preventDefault();
     const { location, createStack, updateStack } = this.props;
@@ -42,7 +48,13 @@ class StackForm extends React.Component{
     const token = this.getCookie('csrftoken');
     try {
       if(type === 'create') {
-        const data = await createStack('stacks', token, this.state);
+        const formData = new FormData();
+        formData.append('logo', this.state.logo)
+        formData.append('name', this.state.name)
+        formData.append('description', this.state.description)
+        formData.append('released_year', this.state.released_year)
+        formData.append('link', this.state.link)
+        const data = await createStack('stacks', token, formData);
         this.props.history.push({
           pathname:`/stack/${data.stack.name}`,
           state: {
@@ -51,7 +63,13 @@ class StackForm extends React.Component{
         });
       } else if (type === 'update') {
         const { stack } = location.state;
-        const data = await updateStack('stacks', token, this.state, stack._id);
+        const formData = new FormData();
+        formData.append('logo', this.state.logo)
+        formData.append('name', this.state.name)
+        formData.append('description', this.state.description)
+        formData.append('released_year', this.state.released_year)
+        formData.append('link', this.state.link)
+        const data = await updateStack('stacks', token, formData, stack._id);
         this.setState({})
         this.props.history.push({
           pathname:`/stack/${data.stack.name}`,
@@ -145,6 +163,9 @@ class StackForm extends React.Component{
               onChange={this.handleChange}             
             />
           </Form.Group>
+          <div className="form-group">
+            <input type="file" onChange={this.onFileChange} />
+          </div>
           <Button variant="primary" type="submit" className={`${style.btn2} mr-3`}>
             {type === 'create' ? 'Create' : 'Update'}
           </Button>

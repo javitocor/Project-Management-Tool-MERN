@@ -34,7 +34,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(helmet());
 app.use(compression());
-app.use(express.static(path.join(__dirname, './frontend/build/static')));
+//app.use(express.static(path.join(__dirname, './frontend/build/static')));
+app.use('/public', express.static('public'));
 
 app.use('/api/stacks', stacksRouter);
 app.use('/api/projects', projectsRouter);

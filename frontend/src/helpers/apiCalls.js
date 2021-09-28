@@ -84,12 +84,9 @@ export const CreateCall = (route, token, data) => async dispatch => {
     const response = await fetch(`${url}/create`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest',
         'X-CSRF-Token': token,
       },
-      redirect: 'error',
-      body: JSON.stringify(data),
+      body: data,
     });
     const newData = await response.json();
     if(route==='stacks'){
@@ -125,12 +122,9 @@ export const UpdateCall = (route, token, data, id) => async dispatch => {
     const response = await fetch(`${url}/${id}`, {
       method: 'PUT',
       headers: {
-        'Content-Type': 'application/json',
-        'X-Requested-With': 'XMLHttpRequest',
         'X-CSRF-Token': token,
       },
-      redirect: 'error',
-      body: JSON.stringify(data),
+      body: data,
     });
     const newData = await response.json();
     if(route==='stacks'){

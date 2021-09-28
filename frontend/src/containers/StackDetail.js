@@ -60,7 +60,7 @@ const StackDetail = (props) => {
             </div>
           </div>
           <div className={`col-md-5 ${style.colpad}`}>
-            <img className="d-block w-100" src="https://picsum.photos/150?image=380" alt="" />
+            <img className="d-block w-100" src={stackInfo.logo} alt="" />
           </div>
         </div>
         
