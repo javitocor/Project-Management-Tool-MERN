@@ -53,7 +53,7 @@ ProfileSchema
 ProfileSchema
 .virtual('url')
 .get(function () {
-  return '/Profiles/'+this._id;
+  return '/Profiles/'+this.name;
 });
 
 // Export model.

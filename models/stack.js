@@ -6,16 +6,21 @@ var StackSchema = new Schema({
     description: {type: String, required: true, minlength: 15, maxlength : 2000},
     released_year: {type: Number, null: true, blank: true, min: 1950, max: 2100},
     link: {type: String},
-    /*logo */
+    logo: {type: String},
     created_at: { type: Date, default: Date.now },
 });
 
-
+StackSchema
+.virtual('imageUrl')
+.get(function () {
+  const pathJPG = `/images/${this.logo}`;
+  return pathJPG;
+});
 // Virtual for this Stack instance URL.
 StackSchema
 .virtual('url')
 .get(function () {
-  return '/Stacks/'+this._id;
+  return '/stacks/'+this.name;
 });
 
 // Export model.

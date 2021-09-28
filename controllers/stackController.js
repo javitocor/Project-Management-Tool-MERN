@@ -31,12 +31,14 @@ exports.stack_create = async (req, res, next) => {
     };*/
 
     try {
+      const url = req.protocol + '://' + req.get('host')
       const {name, description, released_year, link} = req.body;
       const stack = new Stack({
         name,
         description,
         released_year,
-        link
+        link,
+        logo: url + '/public/' + req.file.filename
       });
       await stack.save();
       res.status(201);
@@ -55,7 +57,9 @@ exports.stack_update = async (req, res, next) => {
       });
     };
     try {
-      const stack = await Stack.findByIdAndUpdate(req.params.id, { $set: req.body, updated_at: Date.now() }, {new: true});
+      const url = req.protocol + '://' + req.get('host')
+      const logo = url + '/public/' + req.file.filename;
+      const stack = await Stack.findByIdAndUpdate(req.params.id, { $set: req.body, updated_at: Date.now(), logo }, {new: true});
       res.status(200);
       res.json({message: 'Stack updated successfully', stack});
     } catch (error) {
