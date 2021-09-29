@@ -1,3 +1,6 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable react/sort-comp */
 /* eslint-disable prefer-const */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable react/forbid-prop-types */
@@ -19,8 +22,11 @@ class ProjectForm extends React.Component{
         description: '',
         status: '',
         year: 1980,
+        links: {},
         stack: [],
-        links: {}
+        image: '',
+        github: '',
+        liveLink: '',
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -56,7 +62,11 @@ class ProjectForm extends React.Component{
       this.setState({[event.target.name]: event.target.value})
     } else {
       this.setState({[event.target.name]: event.target.value})
-    }  
+    }      
+  }
+
+  onFileChange = (e) => {
+    this.setState({ image: e.target.files[0] })
   }
 
   async handleSubmit (event) {
@@ -66,7 +76,14 @@ class ProjectForm extends React.Component{
     const token = this.getCookie('csrftoken');
     try {
       if(type === 'create') {
-        const data = await createProject('projects', token, this.state);
+        const formData = new FormData();
+        for (const key in this.state){
+          if(key === 'stack'){
+            formData.append(key, this.state[key])
+          }
+          formData.append(key, this.state[key])
+        }
+        const data = await createProject('projects', token, formData);
         this.props.history.push({
           pathname:`/project/${data.project.name}`,
           state: {
@@ -74,9 +91,17 @@ class ProjectForm extends React.Component{
           },
         });
       } else if (type === 'update') {
+        const formData = new FormData();
         let newStack = this.state.stack.some(obj => obj.name ) ? this.state.stack.map(stack=>stack._id) : this.state.stack
-        await this.setState({stack: newStack})
-        const data = await updateProject('projects', token, this.state, project._id);
+        await this.setState({stack: newStack})        
+        for (const key in this.state){
+          if(key === 'stack'){
+            this.state.stack.forEach(item=> formData.append('stack[]', item))
+          }
+          formData.append(key, this.state[key])
+        }
+        console.log(formData.getAll('stack[]'))
+        const data = await updateProject('projects', token, formData, project._id);
         this.props.history.push({
           pathname:`/project/${data.project.name}`,
           state: {
@@ -182,7 +207,7 @@ class ProjectForm extends React.Component{
                   value='Development'
                   checked={this.state.status === 'Development'}
                   name="status"
-                  id="status2"
+                  id="status1"
                   onChange={this.handleChange}
                 />
                 <Form.Check
@@ -192,7 +217,7 @@ class ProjectForm extends React.Component{
                   value='Standby'
                   checked={this.state.status === 'Standby'}
                   name="status"
-                  id="status3"
+                  id="status1"
                   onChange={this.handleChange}
                 />
               </Row>
@@ -208,6 +233,29 @@ class ProjectForm extends React.Component{
               ))}
             </Form.Control>
           </Form.Group>
+          <Form.Group className="mb-3 mt-3" controlId="formBasicEmail">
+            <Form.Label>Github</Form.Label>
+            <Form.Control 
+              type="text" 
+              placeholder="Enter project name" 
+              defaultValue={this.state.links.Github ? this.state.links.Github : this.state.github}
+              name="github"
+              onChange={this.handleChange} 
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Live Link</Form.Label>
+            <Form.Control 
+              type="text" 
+              placeholder="Enter project name" 
+              defaultValue={this.state.links.liveLink ? this.state.links.liveLink : this.state.liveLink}
+              name="liveLink"
+              onChange={this.handleChange} 
+            />
+          </Form.Group>
+          <div className="form-group">
+            <input type="file" onChange={this.onFileChange} name='avatar' />
+          </div>
           <Button variant="outline-secondary" type="submit" className="mt-3 mr-3">
             {type === 'create' ? 'Create' : 'Update'}
           </Button>

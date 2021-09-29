@@ -48,7 +48,7 @@ class ProfileForm extends React.Component{
     const token = this.getCookie('csrftoken');
     try {
       const formData = new FormData();
-       formData.append('avatar', updated.avatar)
+      formData.append('avatar', updated.avatar)
       formData.append('firstname', updated.firstname)
       formData.append('lastname', updated.lastname)
       formData.append('phone', parseInt(updated.phone))
@@ -58,11 +58,6 @@ class ProfileForm extends React.Component{
       formData.append('gender', updated.gender)
       formData.append('work_status', updated.work_status)
       formData.append('dob', updated.dob) 
-      /* var form_data = new FormData();
-
-      for ( var key in updated ) {
-          form_data.append(key, updated[key]);
-      } */
       await updateProfile('profile', token, formData, user._id);
       this.props.history.push('/profile');
     } catch (error) {

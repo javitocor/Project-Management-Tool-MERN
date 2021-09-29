@@ -19,4 +19,4 @@ exports.upload = multer({
             return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
         }
     }
-}).single('avatar');
+}).single('image');

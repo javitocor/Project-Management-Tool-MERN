@@ -8,7 +8,7 @@ var profile_controller = require('../controllers/profileController');
 router.get('/', profile_controller.profile_list);
 router.get('/:id', profile_controller.profile_detail);
 router.post('/create', [upload.upload, validations.profileValidations], profile_controller.profile_create);
-router.put('/:id', upload.upload, profile_controller.profile_update);
+router.put('/:id', [upload.upload, validations.profileValidations], profile_controller.profile_update);
 router.delete('/:id', profile_controller.profile_delete);
 
 module.exports = router;

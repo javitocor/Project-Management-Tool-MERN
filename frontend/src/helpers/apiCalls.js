@@ -118,7 +118,7 @@ export const UpdateCall = (route, token, data, id) => async dispatch => {
     } else if (route==='profile'){
       dispatch(profile.profilesPending());
     }      
-
+    
     const response = await fetch(`${url}/${id}`, {
       method: 'PUT',
       headers: {
@@ -128,11 +128,11 @@ export const UpdateCall = (route, token, data, id) => async dispatch => {
     });
     const newData = await response.json();
     if(route==='stacks'){
-      dispatch(stacks.updateStack(newData.stack));
+      dispatch(stacks.updateStack(newData.stack, id));
     } else if (route==='projects') {
-      dispatch(projects.updateProject(newData.project));
+      dispatch(projects.updateProject(newData.project, id));
     } else if (route==='profile'){
-      dispatch(profile.updateProfile(newData.profile));
+      dispatch(profile.updateProfile(newData.profile, id));
     }    
     return newData;
   } catch (error) {
