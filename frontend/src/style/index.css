@@ -14,23 +14,12 @@ code {
 
 body, html {
   height: 100%;
-}
-
-#root {
-  height: 100%;
-}
-
-body {
   font-family: 'Poppins', sans-serif;
   background: rgb(52, 58, 64);
 }
 
-p {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.1em;
-  font-weight: 300;
-  line-height: 1.7em;
-  color: #999;
+#root {
+  height: 100%;
 }
 
 a, a:hover, a:focus {

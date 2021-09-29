@@ -14,15 +14,6 @@
   color: black !important;
 }
 
-body {
-background-color: #dce1e5;
-font-family: "Montserrat", helvetica, arial, sans-serif;
-font-size: 14px;
-color: #cfd6e1;
-line-height: 1.5;
-max-width: 100%;
-overflow-x: hidden;
-}
 
 * {
 -webkit-transition: .4s;
@@ -34,9 +25,9 @@ text-decoration: none;
 }
 
 .moviecard {
-background-image: url('http://digitalspyuk.cdnds.net/15/47/1600x800/landscape-1447754794-harrison-ford-blade-runner.jpg');
+background-image: url('https://wallpaperaccess.com/full/3222527.jpg');
 background-size: contain;
-background-position: -40% 80%;
+background-position: -20% 80%;
 background-repeat: no-repeat;
 width: 75%;
 max-width: 800px;
@@ -49,12 +40,7 @@ border-radius: 8px;
 }
 
 .moviecard:nth-child(2) {
-background-image: url("http://www.blastr.com/sites/blastr/files/back-to-the-future-part-ii-original.jpg");
-background-position: -20% 80%;
-}
-
-.moviecard:nth-child(3) {
-background-image: url("http://www.dvdactive.com/images/reviews/screenshot/2011/5/akirabdcap8_original.jpg");
+background-image: url("https://wallpaperaccess.com/full/3222527.jpg");
 background-position: -20% 80%;
 }
 
@@ -105,6 +91,7 @@ margin-bottom: 2em;
 font-weight: 300;
 opacity: .84;
 margin-bottom: 2em;
+color: #2a9fff;
 }
 
 .btn2 {
@@ -141,7 +128,7 @@ width: 25%;
 
 .movieshareicon {
 margin-left: .5em;
-color: #ffffff;
+color: white;
 mix-blend-mode: lighten;
 opacity: .4;
 font-size: 1.3em;
@@ -149,8 +136,7 @@ margin-right: 0.5em;
 }
 
 .movieshareicon i:hover {
-opacity: 1;
-mix-blend-mode: lighten;
+color: red;
 }
 
 @media (max-width: 1000px) {
