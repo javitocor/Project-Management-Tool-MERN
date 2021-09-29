@@ -56,6 +56,7 @@ class ProfileForm extends React.Component{
       formData.append('city', updated.city)
       formData.append('email', updated.email)
       formData.append('gender', updated.gender)
+      formData.append('about', updated.about)
       formData.append('work_status', updated.work_status)
       formData.append('dob', updated.dob) 
       await updateProfile('profile', token, formData, user._id);

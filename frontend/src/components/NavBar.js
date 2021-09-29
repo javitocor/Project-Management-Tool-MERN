@@ -61,7 +61,17 @@ class NavBar extends Component {
                 >
                   Profile
                 </Link>
-                <a className="dropdown-item" href="#">My Projects</a>
+                <Link
+                  key={generateKey('projects')}
+                  to='/projects'
+                  className='dropdown-item'
+                  id="list-home-list"
+                  data-toggle="list"
+                  role="tab"
+                  aria-controls="home"
+                >
+                  Projects
+                </Link>
                 <div className="dropdown-divider" />
                 <a className="dropdown-item" href="#">LogOut</a>
               </div>
@@ -90,15 +100,18 @@ class NavBar extends Component {
               </p>
               <li className="">
                 <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">Projects</a>
-                <ul className="collapse list-unstyled nav-item" id="homeSubmenu">
+                <ul className="collapse list-unstyled nav-item" id="homeSubmenu">                  
                   <li>
-                    <a href="#">In Production</a>
-                  </li>
-                  <li>
-                    <a href="#">In Development</a>
-                  </li>
-                  <li>
-                    <a href="#">Standby</a>
+                    <Link
+                      to='/projects'
+                      className=''
+                      id="list-home-list"
+                      data-toggle="list"
+                      role="tab"
+                      aria-controls="home"
+                    >
+                      My Projects
+                    </Link>
                   </li>
                   <li>
                     <Link
@@ -124,14 +137,17 @@ class NavBar extends Component {
                 <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" className="dropdown-toggle">Stacks</a>
                 <ul className="collapse list-unstyled" id="pageSubmenu">
                   <li>
-                    <a href="#">Javascript</a>
-                  </li>
-                  <li>
-                    <a href="#">Ruby</a>
-                  </li>
-                  <li>
-                    <a href="#">Python</a>
-                  </li>
+                    <Link
+                      to='/stacks'
+                      className=''
+                      id="list-home-list"
+                      data-toggle="list"
+                      role="tab"
+                      aria-controls="home"
+                    >
+                      Stacks
+                    </Link>
+                  </li>                  
                   <li>
                     <Link
                       to={{

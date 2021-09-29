@@ -100,7 +100,6 @@ class ProjectForm extends React.Component{
           }
           formData.append(key, this.state[key])
         }
-        console.log(formData.getAll('stack[]'))
         const data = await updateProject('projects', token, formData, project._id);
         this.props.history.push({
           pathname:`/project/${data.project.name}`,

@@ -64,6 +64,7 @@
 
 .bggrey {
   background-color: #d4d3d3;
+  height: -webkit-fill-available;
 }
 
 .list-group-item {
@@ -143,40 +144,66 @@ border: none !important;
   display: inline-block;
 }
 
-.biochart, .biodesk {
-  float: left;
+
+.card2 {
+  background-color: #fff;
+  border-radius: 10px;
+  border: none;
+  position: relative;
+  margin-bottom: 30px;
+  box-shadow: 0 0.46875rem 2.1875rem rgba(90,97,105,0.1), 0 0.9375rem 1.40625rem rgba(90,97,105,0.1), 0 0.25rem 0.53125rem rgba(90,97,105,0.12), 0 0.125rem 0.1875rem rgba(90,97,105,0.1);
+}
+.lbgcherry {
+  background: linear-gradient(to right, #493240, #f09) !important;
+  color: #fff;
 }
 
-.biochart {
-  width: 40%;
+.lbgbluedark {
+  background: linear-gradient(to right, #373b44, #4286f4) !important;
+  color: #fff;
 }
 
-.biodesk {
-  width: 60%;
+.lbggreendark {
+  background: linear-gradient(to right, #0a504a, #38ef7d) !important;
+  color: #fff;
 }
 
-.biodesk h4 {
-  font-size: 15px;
-  font-weight:400;
+.lbgorangedark {
+  background: linear-gradient(to right, #a86008, #ffba56) !important;
+  color: #fff;
 }
 
-.biodesk h4.terques {
-  color: #4CC5CD;
+.card2 .cardstatistic3 .cardiconlarge .fas, .card .cardstatistic3 .cardiconlarge .far, .card .cardstatistic3 .cardiconlarge .fab, .card .cardstatistic3 .cardiconlarge .fal {
+  font-size: 110px;
 }
 
-.biodesk h4.red {
-  color: #e26b7f;
+.card2 .cardstatistic3 .cardicon {
+  text-align: center;
+  line-height: 50px;
+  margin-left: 15px;
+  color: #000;
+  position: absolute;
+  right: -5px;
+  top: 20px;
+  opacity: 0.1;
 }
 
-.biodesk h4.green {
-  color: #97be4b;
+.lbgcyan {
+  background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+  color: #fff;
 }
 
-.biodesk h4.purple {
-  color: #caa3da;
+.lbggreen {
+  background: linear-gradient(135deg, #23bdb8 0%, #43e794 100%) !important;
+  color: #fff;
 }
 
-.panel{
-  margin-bottom: 2rem;
+.lbgorange {
+  background: linear-gradient(to right, #f9900e, #ffba56) !important;
+  color: #fff;
 }
 
+.lbgcyan {
+  background: linear-gradient(135deg, #289cf5, #84c0ec) !important;
+  color: #fff;
+}

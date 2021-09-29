@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-unused-vars */
@@ -97,7 +98,7 @@ const Profile = (props) => {
               {user.about}                        
             </div>
             <div className={style.biographinfo}>
-              <h1>BioGraph</h1>
+              <h1>BioGraphy</h1>
               <div className="row">
                 <div className={style.biorow}>
                   <p>
@@ -110,7 +111,7 @@ const Profile = (props) => {
                 <div className={style.biorow}>
                   <p>
                     <span>Birthday </span>
-                    {user.dob}
+                    {user.dob ? user.dob.substring(0, 10) : ''}
                   </p>
                 </div>
                 <div className={style.biorow}>
@@ -157,69 +158,109 @@ const Profile = (props) => {
               <h1 className={`${style.skillsheader} mb-4`}>Highlights</h1>
               <div className="row">
                 <div className="col-md-6">
-                  <div className={style.panel}>
-                    <div className="">
-                      <div className={style.biochart}>
-                        <div style={{display:"inline", width:"100px", height:"100px"}}>
-                          <canvas width="100" height="100px" />
-                          <input className="" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="63" data-fgcolor="#4CC5CD" data-bgcolor="#e8e8e8" />
+                  <div className={`${style.card2} card ${style.lbgbluedark}`}>
+                    <div className={`${style.cardstatistic3} p-4`}>
+                      <div className={`${style.cardicon} ${style.cardiconlarge}`}><i className="fas fa-users fa-8x" /></div>
+                      <div className="mb-4">
+                        <h5 className="card-title mb-0">Customers</h5>
+                      </div>
+                      <div className="row align-items-center mb-2 d-flex">
+                        <div className="col-8">
+                          <h2 className="d-flex align-items-center mb-0">
+                            263
+                          </h2>
+                        </div>
+                        <div className="col-4 text-right">
+                          <span>
+                            9.23%
+                            {' '}
+                            <i className="fa fa-arrow-up" />
+                          </span>
                         </div>
                       </div>
-                      <div className={style.biodesk}>
-                        <h4 className={style.terques}>ThemeForest CMS </h4>
-                        <p>Started : 15 July</p>
-                        <p>Deadline : 15 August</p>
+                      <div className="progress mt-1" data-height="8" style={{height: "8px"}}>
+                        <div className={`progressbar ${style.lbgcyan}`} role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style={{width: "25%"}} />
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="col-md-6">
-                  <div className={style.panel}>
-                    <div className="">
-                      <div className={style.biochart}>
-                        <div style={{display:"inline", width:"100px", height:"100px"}}>
-                          <canvas width="100" height="100px" />
-                          <input className="" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="63" data-fgcolor="#4CC5CD" data-bgcolor="#e8e8e8" />
+                  <div className={`card ${style.card2} ${style.lbgcherry}`}>
+                    <div className={`${style.cardstatistic3} p-4`}>
+                      <div className={`${style.cardicon} ${style.cardiconlarge}`}><i className="fas fa-compress-arrows-alt fa-8x" /></div>
+                      <div className="mb-4">
+                        <h5 className="card-title mb-0">New Collaborations</h5>
+                      </div>
+                      <div className="row align-items-center mb-2 d-flex">
+                        <div className="col-8">
+                          <h2 className="d-flex align-items-center mb-0">
+                            145
+                          </h2>
+                        </div>
+                        <div className="col-4 text-right">
+                          <span>
+                            12.5%
+                            {' '}
+                            <i className="fa fa-arrow-up" />
+                          </span>
                         </div>
                       </div>
-                      <div className={style.biodesk}>
-                        <h4 className={style.terques}>ThemeForest CMS </h4>
-                        <p>Started : 15 July</p>
-                        <p>Deadline : 15 August</p>
+                      <div className="progress mt-1" data-height="8" style={{height: "8px"}}>
+                        <div className={`progressbar ${style.lbgcyan}`} role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style={{width: "25%"}} />
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="col-md-6">
-                  <div className={style.panel}>
-                    <div className="">
-                      <div className={style.biochart}>
-                        <div style={{display:"inline", width:"100px", height:"100px"}}>
-                          <canvas width="100" height="100px" />
-                          <input className="" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="75" data-fgcolor="#96be4b" data-bgcolor="#e8e8e8"  />
+                  <div className={`card ${style.card2} ${style.lbggreendark}`}>
+                    <div className={`${style.cardstatistic3} p-4`}>
+                      <div className={`${style.cardicon} ${style.cardiconlarge}`}><i className="fas fa-ticket-alt fa-8x" /></div>
+                      <div className="mb-4">
+                        <h5 className="card-title mb-0">Git Commits</h5>
+                      </div>
+                      <div className="row align-items-center mb-2 d-flex">
+                        <div className="col-8">
+                          <h2 className="d-flex align-items-center mb-0">
+                            1578
+                          </h2>
+                        </div>
+                        <div className="col-4 text-right">
+                          <span>
+                            10%
+                            {' '}
+                            <i className="fa fa-arrow-up" />
+                          </span>
                         </div>
                       </div>
-                      <div className={style.biodesk}>
-                        <h4 className={style.green}>VectorLab Portfolio</h4>
-                        <p>Started : 15 July</p>
-                        <p>Deadline : 15 August</p>
+                      <div className="progress mt-1" data-height="8" style={{height: "8px"}}>
+                        <div className={`progressbar ${style.lbggreen}`} role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style={{width: "25%"}} />
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="col-md-6">
-                  <div className={style.panel}>
-                    <div className="">
-                      <div className={style.biochart}>
-                        <div style={{display:"inline", width:"100px", height:"100px"}}>
-                          <canvas width="100" height="100px" />
-                          <input className="" data-width="100" data-height="100" data-displayprevious="true" data-thickness=".2" value="50" data-fgcolor="#cba4db" data-bgcolor="#e8e8e8"  />
+                  <div className={`card ${style.card2} ${style.lbgorangedark}`}>
+                    <div className={`${style.cardstatistic3} p-4`}>
+                      <div className={`${style.cardicon} ${style.cardiconlarge}`}><i className="far fa-smile-beam fa-8x" /></div>
+                      <div className="mb-4">
+                        <h5 className="card-title mb-0">Customer Satisfaction</h5>
+                      </div>
+                      <div className="row align-items-center mb-2 d-flex">
+                        <div className="col-8">
+                          <h2 className="d-flex align-items-center mb-0">
+                            98%
+                          </h2>
+                        </div>
+                        <div className="col-4 text-right">
+                          <span>
+                            2.5%
+                            {' '}
+                            <i className="fa fa-arrow-up" />
+                          </span>
                         </div>
                       </div>
-                      <div className={style.biodesk}>
-                        <h4 className={style.purple}>Adobe Muse Template</h4>
-                        <p>Started : 15 July</p>
-                        <p>Deadline : 15 August</p>
+                      <div className="progress mt-1" data-height="8" style={{height: "8px"}}>
+                        <div className={`progressbar ${style.lbgorange}`} role="progressbar" data-width="25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style={{width: "25%"}} />
                       </div>
                     </div>
                   </div>

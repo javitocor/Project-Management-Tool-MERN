@@ -19,7 +19,6 @@ exports.profileValidations = [
   body('lastname').isLength({ min: 3 }).withMessage('Lastname must contain minimun 3 characters.').trim().escape(),
   body('about').isLength({ min: 25 }).withMessage('About must have minimun 25 characters.').trim().escape(),
   body('dob').isDate({format: 'DD/MM/YYYY'}).withMessage('Must be a valid date. (DD/MM/YYYY)').optional(),
-  body('email', 'Your email is not valid').trim().not().isEmpty().isEmail().normalizeEmail().escape(),
   body('gender').isIn(['Male', 'Female', 'Other']).trim().escape().optional(),
   body('phone').custom(value => {
     return Profile.findOne({phone: value}).then(user => {
@@ -28,8 +27,8 @@ exports.profileValidations = [
         return Promise.reject('Phone number already in use');
       }
     });
-  }).trim().escape().optional()
-  body('country').trim().escape().optional()
-  body('city').trim().escape().optional()
+  }).trim().escape().optional(),
+  body('country').trim().escape().optional(),
+  body('city').trim().escape().optional(),
   body('work_status').isIn(['Working', 'Searching', 'Freelance']).withMessage('Data should match "Working", "Searching", "Freelance"').trim().escape().optional()
 ];
