@@ -90,6 +90,18 @@ Access the page by typing in your web browser
 ``` bash
    http://127.0.0.1:8000/
 ```
+
+You can also run the app but running the server in one port and react in another, like so:
+on the project root, run:
+```
+npm run devstart
+```
+on the frontend folder, run:
+```
+npm start
+```
+You can access the app by typing http://localhost:3000 in the browser.
+
 ## Information about the project
 ### Endpoints
 ```
