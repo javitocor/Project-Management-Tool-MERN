@@ -33,7 +33,7 @@ const ProjectDetail = (props) => {
         <div className="col-md-12">
           <div className={style.contact}>
             <div className={style.controls}>
-              <img src="https://via.placeholder.com/900x320/FF69B4/000000" alt="cover" className={style.cover} />
+              <img src={projectInfo.image ? projectInfo.image : 'http://localhost:8000/public/images/placeholder.png'} alt="cover" className={style.cover} />
                       
             </div>
             

@@ -33,7 +33,7 @@ const Profile = (props) => {
           <div className={style.panel}>
             <div className={`${style.userheading} round`}>
               <a href="#">
-                <img src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="" />
+                <img src={user.avatar ? user.avatar : 'http://localhost:8000/public/images/placeholder.png'} alt="" />
               </a>
               <h1 className="mt-2">
                 {user.firstname} 

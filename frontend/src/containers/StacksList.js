@@ -34,7 +34,7 @@ const StacksList = (props) => {
         {stacks.map(stack => (
           <div className="col-md-4 mb-3 d-flex justify-content-center align-items-center">
             <div className={`card ${style.card2}`} style={{width: "18rem"}}>
-              <img src="https://i.imgur.com/ZTkt4I5.jpg" className="card-img-top" alt="..." />
+              <img src={stack.logo ? stack.logo : 'http://localhost:8000/public/images/placeholder.png'} className="card-img-top" alt="..." />
               <div className="card-body">
                 <h5 className="card-title">{stack.name}</h5>
                 <h6 className="card-subtitle mb-2 text-muted">
