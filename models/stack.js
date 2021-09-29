@@ -10,12 +10,7 @@ var StackSchema = new Schema({
     created_at: { type: Date, default: Date.now },
 });
 
-StackSchema
-.virtual('imageUrl')
-.get(function () {
-  const pathJPG = `/images/${this.logo}`;
-  return pathJPG;
-});
+
 // Virtual for this Stack instance URL.
 StackSchema
 .virtual('url')

@@ -41,13 +41,6 @@ var ProfileSchema = new Schema({
     updated_at: { type: Date, default: Date.now },
 });
 
-ProfileSchema
-.virtual('imageUrl')
-.get(function () {
-  const pathJPG = `/images/${this.avatar}`;
-  return pathJPG;
-});
-
 
 // Virtual for this Profile instance URL.
 ProfileSchema
