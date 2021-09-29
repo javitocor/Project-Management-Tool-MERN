@@ -40,13 +40,15 @@ app.use(
   helmet({
     contentSecurityPolicy: {
       directives: {
-        defaultSrc: ["'self'", 'http://localhost:8000'], 
-        scriptSrc: ["'self'", "'unsafe-inline'",  'https://fonts.googleapis.com ', 'https://kit.fontawesome.com/d4de0f4540.js', 'https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js', 'https://code.jquery.com/jquery-3.5.1.slim.min.js'],
-        styleSrc: ["'self'", 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css'],
+        defaultSrc: ["'self'", 'https://ka-f.fontawesome.com'], 
+        scriptSrc: ["'self'", "'unsafe-inline'", '*.fontawesome.com', 'https://use.fontawesome.com/releases/v5.15.4/js/all.js', 'https://kit.fontawesome.com',  'https://fonts.googleapis.com ', 'https://kit.fontawesome.com/d4de0f4540.js', 'https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js', 'https://code.jquery.com/jquery-3.5.1.slim.min.js'],
+        styleSrc: ["'self'", "'unsafe-inline'", '*.fontawesome.com', 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css'],
         imgSrc: ["*", 'data:'],
-        connectSrc: ["'self'", 'https://ka-f.fontawesome.com/releases/v5.15.4/js/free-v4-shims.min.js?token=d4de0f4540', 'https://ka-f.fontawesome.com/releases/v5.15.4/js/free.min.js?token=d4de0f4540'],
+        fontSrc: ["'self'", 'data:', '*.fontawesome.com', 'https://ka-f.fontawesome.com'],
+        connectSrc: ["'self'", '*.fontawesome.com', 'https://ka-f.fontawesome.com', 'https://ka-f.fontawesome.com/releases/v5.15.4/js/free-v4-shims.min.jsd', 'https://ka-f.fontawesome.com/releases/v5.15.4/js/free.min.js'],
         frameSrc: ["'self'"],
       },
+      reportOnly: false,
     }
   })
 );
