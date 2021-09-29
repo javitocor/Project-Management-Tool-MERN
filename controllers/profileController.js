@@ -64,12 +64,12 @@ exports.profile_create = async (req, res, next) => {
 };
 
 exports.profile_update = async (req, res, next) => {
-  /*const errors = validationResult(req);
+  const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(422).json({
         errors: errors.array()
       });
-    };*/
+    };
     try {
       const url = req.protocol + '://' + req.get('host')
       let avatar = null;

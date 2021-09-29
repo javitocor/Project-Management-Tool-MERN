@@ -42,12 +42,12 @@ exports.project_create = async (req, res, next) => {
       req.body.stack = new Array(req.body.stack);
     }
   } 
-  /*const errors = validationResult(req);
+  const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({
       errors: errors.array()
     });
-  };*/
+  };
 
   try {
     const url = req.protocol + '://' + req.get('host')
@@ -89,12 +89,12 @@ exports.project_update = async (req, res, next) => {
       req.body.stack = new Array(req.body.stack);
     }
   }
-  /*const errors = validationResult(req);
+  const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).json({
       errors: errors.array()
     });
-  };*/
+  };
 
   try {
     const url = req.protocol + '://' + req.get('host')
