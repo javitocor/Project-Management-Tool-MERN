@@ -29,4 +29,7 @@ exports.profileValidations = [
       }
     });
   }).trim().escape().optional()
+  body('country').trim().escape().optional()
+  body('city').trim().escape().optional()
+  body('work_status').isIn(['Working', 'Searching', 'Freelance']).withMessage('Data should match "Working", "Searching", "Freelance"').trim().escape().optional()
 ];
