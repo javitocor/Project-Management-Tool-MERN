@@ -248,7 +248,7 @@ class ProjectForm extends React.Component{
             <Form.Control 
               type="text" 
               placeholder="Enter project name" 
-              defaultValue={this.state.links.liveLink ? this.state.links.liveLink : this.state.liveLink}
+              defaultValue={this.state.links['Live Link'] ? this.state.links['Live Link'] : this.state.liveLink}
               name="liveLink"
               onChange={this.handleChange} 
             />
