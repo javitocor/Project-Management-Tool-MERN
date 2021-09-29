@@ -24,18 +24,35 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+//app.set('views', path.join(__dirname, 'views'));
+//app.set('view engine', 'jade');
 
-app.use(cors());
+var corsOptions = {
+  origin: "http://localhost:3000"
+};
+
+app.use(cors(corsOptions));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'", 'http://localhost:8000'], 
+        scriptSrc: ["'self'", "'unsafe-inline'",  'https://fonts.googleapis.com ', 'https://kit.fontawesome.com/d4de0f4540.js', 'https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js', 'https://code.jquery.com/jquery-3.5.1.slim.min.js'],
+        styleSrc: ["'self'", 'https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css'],
+        imgSrc: ["*", 'data:'],
+        connectSrc: ["'self'", 'https://ka-f.fontawesome.com/releases/v5.15.4/js/free-v4-shims.min.js?token=d4de0f4540', 'https://ka-f.fontawesome.com/releases/v5.15.4/js/free.min.js?token=d4de0f4540'],
+        frameSrc: ["'self'"],
+      },
+    }
+  })
+);
 app.use(compression());
-//app.use(express.static(path.join(__dirname, './frontend/build/static')));
-app.use('/public', express.static('public'));
+app.use(express.static(path.join(__dirname, './frontend/build/')));
+//app.use('/public', express.static('public'));
 
 app.use('/api/stacks', stacksRouter);
 app.use('/api/projects', projectsRouter);
