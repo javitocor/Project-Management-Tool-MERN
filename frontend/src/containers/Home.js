@@ -224,8 +224,19 @@ function Home(props) {
                         {project.description.substring(0, 38)}
                         ...
                       </p>
-                      <a className={`${style.btn2} ${style.btnoutline} btn-outline`} href="#">Check it out</a>
-                        
+                      <Link
+                        to={{
+                        pathname: `/project/${project.name}`,
+                        state: { id: project._id }
+                      }}
+                        className={`${style.btn2} ${style.btnoutline} btn-outline`}
+                        id="list-home-list"
+                        data-toggle="list"
+                        role="tab"
+                        aria-controls="home"
+                      >
+                        Check it out
+                      </Link>
                     </div>
                   </div>
                 </div>
